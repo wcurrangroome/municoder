@@ -1,0 +1,22 @@
+Package: municoder
+Title: Interface to the municode.com API
+Version: 0.0.0.9000
+Authors@R: 
+    person("Will", "Curran-Groome", , "wcurrangroome@gmail.com", role = c("aut", "cre"))
+Description: Access and programmatically navigated ordinances and associated metadata relating to regulatory documents hosted on municode.com.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    dplyr,
+    httr2,
+    janitor,
+    magrittr,
+    purrr,
+    stringr,
+    tibble,
+    tidyr
+    
+    
+    
