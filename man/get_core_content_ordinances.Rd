@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_core_content_ordinances}
 \alias{get_core_content_ordinances}
-\title{Return information about all ordinances of a given type (e.g., zoning) for a given year
-Corresponds to, for example: https://api.municode.com/CoreContent/Ordinances?nodeId=2023&productId=12429}
+\title{Return information about all ordinances of a given type (e.g., zoning) for a given year}
 \usage{
 get_core_content_ordinances(product_id, node_id = NULL)
 }
@@ -16,6 +15,5 @@ get_core_content_ordinances(product_id, node_id = NULL)
 A dataframe comprising ordinances
 }
 \description{
-Return information about all ordinances of a given type (e.g., zoning) for a given year
 Corresponds to, for example: https://api.municode.com/CoreContent/Ordinances?nodeId=2023&productId=12429
 }

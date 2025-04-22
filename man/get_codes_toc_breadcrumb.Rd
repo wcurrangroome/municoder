@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_codes_toc_breadcrumb}
 \alias{get_codes_toc_breadcrumb}
-\title{Get information about a given node's ancestor(s)
-Corresponds to, for example: https://api.municode.com/codesToc/breadcrumb?jobId=426172&nodeId=THZOORALVI&productId=12429}
+\title{Get information about a given node's ancestor(s)}
 \usage{
 get_codes_toc_breadcrumb(job_id, node_id, product_id)
 }
@@ -15,6 +14,5 @@ get_codes_toc_breadcrumb(job_id, node_id, product_id)
 \item{product_id}{A unique identifier for a product}
 }
 \description{
-Get information about a given node's ancestor(s)
 Corresponds to, for example: https://api.municode.com/codesToc/breadcrumb?jobId=426172&nodeId=THZOORALVI&productId=12429
 }

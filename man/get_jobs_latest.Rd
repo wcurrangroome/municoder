@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_jobs_latest}
 \alias{get_jobs_latest}
-\title{This returns data on the most recent job (e.g., the current zoning ordinance, reflecting amendments)
-Corresponds to, for example: https://api.municode.com/Jobs/latest/12429}
+\title{This returns data on the most recent job (e.g., the current zoning ordinance, reflecting amendments)}
 \usage{
 get_jobs_latest(product_id)
 }
@@ -11,6 +10,5 @@ get_jobs_latest(product_id)
 \item{product_id}{A unique identifier for a product}
 }
 \description{
-This returns data on the most recent job (e.g., the current zoning ordinance, reflecting amendments)
 Corresponds to, for example: https://api.municode.com/Jobs/latest/12429
 }

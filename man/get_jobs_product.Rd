@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_jobs_product}
 \alias{get_jobs_product}
-\title{Returns data on all jobs for a given product (e.g., all historical versions of the zoning ordinance)
-Corresponds to, for example: https://api.municode.com/Jobs/product/12429}
+\title{Returns data on all jobs for a given product (e.g., all historical versions of the zoning ordinance)}
 \usage{
 get_jobs_product(product_id)
 }
@@ -11,6 +10,5 @@ get_jobs_product(product_id)
 \item{product_id}{A unique identifier for a product}
 }
 \description{
-Returns data on all jobs for a given product (e.g., all historical versions of the zoning ordinance)
 Corresponds to, for example: https://api.municode.com/Jobs/product/12429
 }

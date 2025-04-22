@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_ordinances_toc}
 \alias{get_ordinances_toc}
-\title{Obtain metadata about a given ordinance over time
-Corresponds to, for example: https://api.municode.com/ordinancesToc?nodeId=2023&productId=12429}
+\title{Obtain metadata about a given ordinance over time}
 \usage{
 get_ordinances_toc(product_id, node_id = NA)
 }
@@ -13,7 +12,6 @@ get_ordinances_toc(product_id, node_id = NA)
 \item{node_id}{A unique identifier for a node within the specified product (ordinance)}
 }
 \description{
-Obtain metadata about a given ordinance over time
 Corresponds to, for example: https://api.municode.com/ordinancesToc?nodeId=2023&productId=12429
 }
 \examples{

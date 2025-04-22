@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_codes_toc_children}
 \alias{get_codes_toc_children}
-\title{Get information about a given node's children
-Corresponds to, for example: https://api.municode.com/codesToc/children?jobId=426172&nodeId=ARTIGERE&productId=12429}
+\title{Get information about a given node's children}
 \usage{
 get_codes_toc_children(job_id, node_id, product_id)
 }
@@ -15,7 +14,6 @@ get_codes_toc_children(job_id, node_id, product_id)
 \item{product_id}{A unique identifier for a product}
 }
 \description{
-Get information about a given node's children
 Corresponds to, for example: https://api.municode.com/codesToc/children?jobId=426172&nodeId=ARTIGERE&productId=12429
 }
 \examples{

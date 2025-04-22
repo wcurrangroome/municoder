@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_states}
 \alias{get_states}
-\title{Return metadata about states (and similar) as used by municode
-Corresponds to: https://api.municode.com/States/}
+\title{Return metadata about states (and similar) as used by municode}
 \usage{
 get_states()
 }
@@ -11,6 +10,5 @@ get_states()
 A dataframe with three columns: \code{state_id}, \code{state_name}, \code{state_abbreviation.}
 }
 \description{
-Return metadata about states (and similar) as used by municode
 Corresponds to: https://api.municode.com/States/
 }

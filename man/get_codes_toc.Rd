@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_codes_toc}
 \alias{get_codes_toc}
-\title{Get the Table of Contents for an ordinance
-Corresponds to, for example: https://api.municode.com/codesToc?jobId=426172&productId=12429}
+\title{Get the Table of Contents for an ordinance}
 \usage{
 get_codes_toc(job_id, product_id)
 }
@@ -16,7 +15,6 @@ get_codes_toc(job_id, product_id)
 A dataframe with TOC sections and associated metadata
 }
 \description{
-Get the Table of Contents for an ordinance
 Corresponds to, for example: https://api.municode.com/codesToc?jobId=426172&productId=12429
 }
 \examples{

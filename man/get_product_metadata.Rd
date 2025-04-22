@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_product_metadata}
 \alias{get_product_metadata}
-\title{Get metadata about a specified product
-Corresponds to, for example: https://api.municode.com/Products/name?clientId=12053&productName=code+of+ordinances}
+\title{Get metadata about a specified product}
 \usage{
 get_product_metadata(client_id, product_name)
 }
@@ -13,7 +12,6 @@ get_product_metadata(client_id, product_name)
 \item{product_name}{The name of a product type, e.g., "Code of Ordinances"}
 }
 \description{
-Get metadata about a specified product
 Corresponds to, for example: https://api.municode.com/Products/name?clientId=12053&productName=code+of+ordinances
 }
 \examples{

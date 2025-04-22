@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_clients_in_state}
 \alias{get_clients_in_state}
-\title{Return metadata for all Municode clients in a given state
-Corresponds to, for example: https://api.municode.com/Clients/stateAbbr?stateAbbr=VA}
+\title{Return metadata for all Municode clients in a given state}
 \usage{
 get_clients_in_state(state_abbreviation)
 }
@@ -14,7 +13,6 @@ get_clients_in_state(state_abbreviation)
 A dataframe of clients
 }
 \description{
-Return metadata for all Municode clients in a given state
 Corresponds to, for example: https://api.municode.com/Clients/stateAbbr?stateAbbr=VA
 }
 \examples{

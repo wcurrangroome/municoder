@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_codes_content}
 \alias{get_codes_content}
-\title{Get text and metadata for a given node within a given ordinance
-Corresponds to, for example: https://api.municode.com/CodesContent?jobId=426172&nodeId=THZOORALVI&productId=12429}
+\title{Get text and metadata for a given node within a given ordinance}
 \usage{
 get_codes_content(node_id = NULL, product_id)
 }
@@ -16,7 +15,6 @@ get_codes_content(node_id = NULL, product_id)
 A dataframe with the content and metadata pertaining to a specific node within an ordinance
 }
 \description{
-Get text and metadata for a given node within a given ordinance
 Corresponds to, for example: https://api.municode.com/CodesContent?jobId=426172&nodeId=THZOORALVI&productId=12429
 }
 \examples{

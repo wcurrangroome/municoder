@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_client_metadata}
 \alias{get_client_metadata}
-\title{Returns metadata about a given client
-Corresponds to, for example: https://api.municode.com/Clients/name?stateAbbr=VA&clientName=Alexandria}
+\title{Returns metadata about a given client}
 \usage{
 get_client_metadata(state_abbreviation, client_name)
 }
@@ -16,7 +15,6 @@ get_client_metadata(state_abbreviation, client_name)
 A dataframe of metadata about the specified client
 }
 \description{
-Returns metadata about a given client
 Corresponds to, for example: https://api.municode.com/Clients/name?stateAbbr=VA&clientName=Alexandria
 }
 \examples{

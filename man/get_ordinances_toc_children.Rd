@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_ordinances_toc_children}
 \alias{get_ordinances_toc_children}
-\title{Get the children of a given node in an ordinance's Table of Contents
-Corresponds to, for example: https://api.municode.com/ordinancesToc/children?productId=12429&nodeId=2023}
+\title{Get the children of a given node in an ordinance's Table of Contents}
 \usage{
 get_ordinances_toc_children(product_id, node_id)
 }
@@ -13,6 +12,5 @@ get_ordinances_toc_children(product_id, node_id)
 \item{node_id}{A unique identifier for a node within the specified product (ordinance)}
 }
 \description{
-Get the children of a given node in an ordinance's Table of Contents
 Corresponds to, for example: https://api.municode.com/ordinancesToc/children?productId=12429&nodeId=2023
 }

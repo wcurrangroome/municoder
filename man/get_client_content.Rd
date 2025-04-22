@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_client_content}
 \alias{get_client_content}
-\title{Obtain metadata for a jurisdiction's regulatory documents hosted on Municode
-Corresponds to, for example: https://api.municode.com/ClientContent/12053}
+\title{Obtain metadata for a jurisdiction's regulatory documents hosted on Municode}
 \usage{
 get_client_content(client_id)
 }
@@ -14,7 +13,6 @@ get_client_content(client_id)
 A dataframe with metadata about each product for a client (e.g., code of ordinances, zoning, etc.)
 }
 \description{
-Obtain metadata for a jurisdiction's regulatory documents hosted on Municode
 Corresponds to, for example: https://api.municode.com/ClientContent/12053
 }
 \examples{

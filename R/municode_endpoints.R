@@ -1,6 +1,6 @@
 #' @importFrom magrittr %>%
 
-#' A helper function to build an API endpoint
+#' @title A helper function to build an API endpoint
 #' @param domain The first component of the API endpoint after base api.municode.com/
 #' @param subdomain The second component of the API endpoint after api.municode.com/domain
 #' @param parameters Named vector of parameter-value pairs passed to configure the API endpoint
@@ -32,7 +32,7 @@ build_endpoint = function(domain, subdomain = NULL, parameters = NULL) {
   return(endpoint)
 }
 
-#' A helper function to send a GET request to an API endpoint
+#' @title A helper function to send a GET request to an API endpoint
 #' @param endpoint An API endpoint
 get_endpoint = function(endpoint) {
   result = endpoint %>%
@@ -43,8 +43,8 @@ get_endpoint = function(endpoint) {
   return(result)
 }
 
-#' Return metadata about states (and similar) as used by municode
-#' Corresponds to: https://api.municode.com/States/
+#' @title Return metadata about states (and similar) as used by municode
+#' @description Corresponds to: https://api.municode.com/States/
 #' @returns A dataframe with three columns: `state_id`, `state_name`, `state_abbreviation.`
 #' @export
 get_states = function() {
@@ -59,8 +59,8 @@ get_states = function() {
   return(result)
 }
 
-#' Look up state metadata given a state abbreviation
-#' Corresponds to (for example): https://api.municode.com/States/abbr?stateAbbr=ak
+#' @title Look up state metadata given a state abbreviation
+#' @description Corresponds to (for example): https://api.municode.com/States/abbr?stateAbbr=ak
 #' @param state_abbreviation A two-character state abbreviation
 #'
 #' @returns A dataframe with three columns: `state_id`, `state_name`, `state_abbreviation.`
@@ -80,8 +80,8 @@ get_states_abbreviation = function(state_abbreviation) {
   return(result)
 }
 
-#' Return information about all ordinances of a given type (e.g., zoning) for a given year
-#' Corresponds to, for example: https://api.municode.com/CoreContent/Ordinances?nodeId=2023&productId=12429
+#' @title Return information about all ordinances of a given type (e.g., zoning) for a given year
+#' @description Corresponds to, for example: https://api.municode.com/CoreContent/Ordinances?nodeId=2023&productId=12429
 #' @param product_id A unique code identifying a product (e.g., a zoning ordinance)
 #' @param node_id The year for which ordinances are requested
 #'
@@ -109,8 +109,8 @@ get_core_content_ordinances = function(product_id, node_id = NULL) {
   return(result)
 }
 
-#' Returns metadata about a given client
-#' Corresponds to, for example: https://api.municode.com/Clients/name?stateAbbr=VA&clientName=Alexandria
+#' @title Returns metadata about a given client
+#' @description Corresponds to, for example: https://api.municode.com/Clients/name?stateAbbr=VA&clientName=Alexandria
 #' @param state_abbreviation A two-character state code
 #' @param client_name The name of a given client
 #'
@@ -135,8 +135,8 @@ get_client_metadata = function(state_abbreviation, client_name) {
   return(result)
 }
 
-#' Return metadata for all Municode clients in a given state
-#' Corresponds to, for example: https://api.municode.com/Clients/stateAbbr?stateAbbr=VA
+#' @title Return metadata for all Municode clients in a given state
+#' @description Corresponds to, for example: https://api.municode.com/Clients/stateAbbr?stateAbbr=VA
 #' @param state_abbreviation A two-character state code
 #'
 #' @returns A dataframe of clients
@@ -160,8 +160,8 @@ get_clients_in_state = function(state_abbreviation) {
   return(result)
 }
 
-#' Obtain metadata for a jurisdiction's regulatory documents hosted on Municode
-#' Corresponds to, for example: https://api.municode.com/ClientContent/12053
+#' @title Obtain metadata for a jurisdiction's regulatory documents hosted on Municode
+#' @description Corresponds to, for example: https://api.municode.com/ClientContent/12053
 #' @param client_id A code corresponding to a given client; this can be obtained from `get_clients_in_state()`
 #'
 #' @returns A dataframe with metadata about each product for a client (e.g., code of ordinances, zoning, etc.)
@@ -186,8 +186,8 @@ get_client_content = function(client_id) {
   return(result)
 }
 
-#' Get text and metadata for a given node within a given ordinance
-#' Corresponds to, for example: https://api.municode.com/CodesContent?jobId=426172&nodeId=THZOORALVI&productId=12429
+#' @title Get text and metadata for a given node within a given ordinance
+#' @description Corresponds to, for example: https://api.municode.com/CodesContent?jobId=426172&nodeId=THZOORALVI&productId=12429
 #' @param node_id A unique identifier for a node within the specified product (ordinance)
 #' @param product_id A unique identifier for a product
 #'
@@ -251,8 +251,8 @@ get_codes_content = function(node_id = NULL, product_id) {
   return(result)
  }
 
-#' Get the Table of Contents for an ordinance
-#' Corresponds to, for example: https://api.municode.com/codesToc?jobId=426172&productId=12429
+#' @title Get the Table of Contents for an ordinance
+#' @description Corresponds to, for example: https://api.municode.com/codesToc?jobId=426172&productId=12429
 #' @param job_id A unique identifier for a job
 #' @param product_id A unique identifier for a product
 #'
@@ -282,8 +282,8 @@ get_codes_toc = function(job_id, product_id) {
   return(result)
 }
 
-#' Get information about a given node's ancestor(s)
-#' Corresponds to, for example: https://api.municode.com/codesToc/breadcrumb?jobId=426172&nodeId=THZOORALVI&productId=12429
+#' @title Get information about a given node's ancestor(s)
+#' @description Corresponds to, for example: https://api.municode.com/codesToc/breadcrumb?jobId=426172&nodeId=THZOORALVI&productId=12429
 #' @param job_id A unique identifier for a job
 #' @param node_id A unique identifier for a node within the specified product (ordinance)
 #' @param product_id A unique identifier for a product
@@ -311,8 +311,8 @@ get_codes_toc_breadcrumb = function(job_id, node_id, product_id) {
   return(result)
 }
 
-#' Get information about a given node's children
-#' Corresponds to, for example: https://api.municode.com/codesToc/children?jobId=426172&nodeId=ARTIGERE&productId=12429
+#' @title Get information about a given node's children
+#' @description Corresponds to, for example: https://api.municode.com/codesToc/children?jobId=426172&nodeId=ARTIGERE&productId=12429
 #' @param job_id A unique identifier for a job
 #' @param node_id A unique identifier for a node within the specified product (ordinance)
 #' @param product_id A unique identifier for a product
@@ -334,8 +334,8 @@ get_codes_toc_children = function(job_id, node_id, product_id) {
   return(result)
 }
 
-#' Obtain metadata about a given ordinance over time
-#' Corresponds to, for example: https://api.municode.com/ordinancesToc?nodeId=2023&productId=12429
+#' @title Obtain metadata about a given ordinance over time
+#' @description Corresponds to, for example: https://api.municode.com/ordinancesToc?nodeId=2023&productId=12429
 #' @param product_id A unique identifier for a product
 #' @param node_id A unique identifier for a node within the specified product (ordinance)
 #'
@@ -358,7 +358,7 @@ get_ordinances_toc = function(product_id, node_id = NA) {
   return(result)
 }
 
-#' Get the ancestors of a given node in an ordinance's Table of Contents
+#' @title Get the ancestors of a given node in an ordinance's Table of Contents
 #' Corresponds to, for example: https://api.municode.com/ordinancesToc/breadcrumb?nodeId=2023&productId=12429
 #' @param product_id A unique identifier for a product
 #' @param node_id A unique identifier for a node within the specified product (ordinance)
@@ -371,13 +371,19 @@ get_ordinances_toc_breadcrumb = function(product_id, node_id) {
       subdomain = "breadcrumb",
       parameters = c(nodeId = node_id, productId = product_id)) %>%
     get_endpoint() %>%
-    named_list_to_tibble()
+    tibble::enframe() %>%
+    tidyr::pivot_wider() %>%
+    tidyr::unnest_wider(Node) %>%
+    tidyr::unnest_longer(Ancestors) %>%
+    tidyr::unnest_longer(Ancestors) %>%
+    janitor::clean_names() %>%
+    dplyr::select(id, ancestors, ancestors_id)
 
   return(result)
 }
 
-#' Get the children of a given node in an ordinance's Table of Contents
-#' Corresponds to, for example: https://api.municode.com/ordinancesToc/children?productId=12429&nodeId=2023
+#' @title Get the children of a given node in an ordinance's Table of Contents
+#' @description Corresponds to, for example: https://api.municode.com/ordinancesToc/children?productId=12429&nodeId=2023
 #' @param product_id A unique identifier for a product
 #' @param node_id A unique identifier for a node within the specified product (ordinance)
 #' @export
@@ -395,8 +401,8 @@ get_ordinances_toc_children = function(product_id, node_id) {
   return(result)
 }
 
-#' Returns data on all jobs for a given product (e.g., all historical versions of the zoning ordinance)
-#' Corresponds to, for example: https://api.municode.com/Jobs/product/12429
+#' @title Returns data on all jobs for a given product (e.g., all historical versions of the zoning ordinance)
+#' @description Corresponds to, for example: https://api.municode.com/Jobs/product/12429
 #' @param product_id A unique identifier for a product
 #'
 #' @export
@@ -412,8 +418,8 @@ get_jobs_product = function(product_id) {
     janitor::clean_names()
 }
 
-#' This returns data on the most recent job (e.g., the current zoning ordinance, reflecting amendments)
-#' Corresponds to, for example: https://api.municode.com/Jobs/latest/12429
+#' @title This returns data on the most recent job (e.g., the current zoning ordinance, reflecting amendments)
+#' @description Corresponds to, for example: https://api.municode.com/Jobs/latest/12429
 #' @param product_id A unique identifier for a product
 #' @export
 get_jobs_latest = function(product_id) {
@@ -436,8 +442,8 @@ get_jobs_latest = function(product_id) {
   return(result)
 }
 
-#' Get metadata about a specified product
-#' Corresponds to, for example: https://api.municode.com/Products/name?clientId=12053&productName=code+of+ordinances
+#' @title Get metadata about a specified product
+#' @description Corresponds to, for example: https://api.municode.com/Products/name?clientId=12053&productName=code+of+ordinances
 #' @param client_id A unique identifier for a client
 #' @param product_name The name of a product type, e.g., "Code of Ordinances"
 #' @export

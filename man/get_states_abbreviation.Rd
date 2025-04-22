@@ -2,8 +2,7 @@
 % Please edit documentation in R/municode_endpoints.R
 \name{get_states_abbreviation}
 \alias{get_states_abbreviation}
-\title{Look up state metadata given a state abbreviation
-Corresponds to (for example): https://api.municode.com/States/abbr?stateAbbr=ak}
+\title{Look up state metadata given a state abbreviation}
 \usage{
 get_states_abbreviation(state_abbreviation)
 }
@@ -14,6 +13,5 @@ get_states_abbreviation(state_abbreviation)
 A dataframe with three columns: \code{state_id}, \code{state_name}, \code{state_abbreviation.}
 }
 \description{
-Look up state metadata given a state abbreviation
 Corresponds to (for example): https://api.municode.com/States/abbr?stateAbbr=ak
 }
