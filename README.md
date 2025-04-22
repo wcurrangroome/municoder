@@ -101,8 +101,7 @@ housing affordability–and that is also the only zone with a “Purpose”
 that does not explicitly refer to a cap on unit density.
 
 ``` r
-temp = 
-  municoder::get_codes_content(
+municoder::get_codes_content(
     product_id = alexandria_zoning_product_id, 
     node_id = "ARTIIIREZORE") %>%
   dplyr::pull(id) %>%
@@ -111,4 +110,17 @@ temp =
     !is.na(content),
     stringr::str_detect(heading, "Purpose")) %>%
   dplyr::pull(content)
+#>  [1] " The R-20 zone is established to provide and maintain land areas for low density residential neighborhoods of single-unit, two-unit, and multi-unit up to four units dwellings on 20,000 square foot lots. Nonresidential uses of a noncommercial nature which are related to, supportive of and customarily found in a residential neighborhood are also permitted. "                
+#>  [2] " The R-12 zone is established to provide and maintain land areas for low density residential neighborhoods of single-unit, two-unit, and multi-unit up to four units dwellings on 12,000 square foot lots. Nonresidential uses of a noncommercial nature which are related to, supportive of and customarily found in a residential neighborhood are also permitted. "                
+#>  [3] " The R-8 zone is established to provide and maintain land areas for low density residential neighborhoods of single-unit, two-unit, and multi-unit up to four units dwellings on 8,000 square foot lots. Nonresidential uses of a noncommercial nature which are related to, supportive of and customarily found in a residential neighborhood are also permitted. "                  
+#>  [4] " The R-5 zone is established to provide and maintain land areas for low density residential neighborhoods of single-unit, two-unit, and multi-unit up to four units dwellings on 5,000 square foot lots. Nonresidential uses of a noncommercial nature which are related to, supportive of and customarily found in a residential neighborhood are also permitted. "                  
+#>  [5] " The R-2-5 zone is established to provide and maintain land areas for low density residential neighborhoods of single-unit, two-unit, and multi-unit up to four units dwellings on 5,000 square foot lots. Nonresidential uses of a noncommercial nature which are related to, supportive of and customarily found in a residential neighborhood are also permitted. "                
+#>  [6] " The RA zone is established to provide and maintain land areas for medium density residential neighborhoods in which apartments predominate and in which single-unit, two-unit and townhouse development is permitted. Nonresidential uses of a noncommercial nature which are related to, supportive of and customarily found in such residential neighborhoods are also permitted. "
+#>  [7] " The RB zone is established to provide and maintain land areas for medium density residential neighborhoods in which single-unit, two-unit, and townhouse dwellings are permitted. Nonresidential uses of a noncommercial nature which are related to, supportive of and customarily found in such residential neighborhoods are also permitted. "                                    
+#>  [8] " The RCX zone is established to provide and maintain land areas for medium density apartment buildings and to permit limited commercial uses in such structures. Nonresidential uses of a noncommercial nature which are related to, supportive of and customarily found in such residential neighborhoods are also permitted. "                                                      
+#>  [9] " The RC zone is established to provide and maintain land areas for high density apartment buildings and to permit limited commercial uses in such structures. Nonresidential uses of a noncommercial nature which are related to, supportive of and customarily found in such residential neighborhoods are also permitted. "                                                         
+#> [10] " The RM zone is established to provide and maintain land areas for medium density residential neighborhoods of single-unit, two-unit and townhouse dwellings. Nonresidential uses of a noncommercial nature which are related to, supportive of and customarily found in such residential neighborhoods are also permitted. "                                                         
+#> [11] " The RS zone is established to provide land areas for low to medium density townhouse development of approximately 15 units per acre which may be appropriate for infill sites in proximity to neighborhoods of single-family detached homes. "                                                                                                                                       
+#> [12] " The RT zone is established to provide land areas for low density residential townhouse development at approximately nine units per acre which may be appropriate for infill sites in proximity to neighborhoods of low density single-unit, two-unit, and multi-unit up to four units dwellings. "                                                                                   
+#> [13] " The RMF zone is established to provide land areas for multi-unit residential development and to enhance or preserve long-term affordability of housing. The zone would also permit limited neighborhood-serving commercial uses. "
 ```

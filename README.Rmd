@@ -98,8 +98,7 @@ for each zone. For example, we might notice that the RMF zone is the only zone w
 affordability--raising the question why Alexandria's other zones aren't also designed to further housing affordability--and that is
 also the only zone with a "Purpose" that does not explicitly refer to a cap on unit density.
 ```{r}
-temp = 
-  municoder::get_codes_content(
+municoder::get_codes_content(
     product_id = alexandria_zoning_product_id, 
     node_id = "ARTIIIREZORE") %>%
   dplyr::pull(id) %>%
