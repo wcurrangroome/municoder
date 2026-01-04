@@ -34,120 +34,192 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
 
       <dl><dt>
 
-          <code><a href="build_endpoint.html">build_endpoint()</a></code>
+          <code><a href="clear_cache.html">clear_cache()</a></code>
 
         </dt>
-        <dd>A helper function to build an API endpoint</dd>
-      </dl><dl><dt>
+        <dd>Clear all cached API results</dd>
+
+        <dt>
+
+          <code><a href="dot-municoder_cache.html">.municoder_cache</a></code>
+
+        </dt>
+        <dd>Cached versions of API functions for improved performance</dd>
+
+        <dt>
 
           <code><a href="get_client_content.html">get_client_content()</a></code>
 
         </dt>
         <dd>Obtain metadata for a jurisdiction's regulatory documents hosted on Municode</dd>
-      </dl><dl><dt>
+
+        <dt>
+
+          <code><a href="get_client_content_cached.html">get_client_content_cached()</a></code>
+
+        </dt>
+        <dd>Get client content with caching</dd>
+
+        <dt>
 
           <code><a href="get_client_metadata.html">get_client_metadata()</a></code>
 
         </dt>
-        <dd>Returns metadata about a given client</dd>
-      </dl><dl><dt>
+        <dd>Client-related API functions Returns metadata about a given client</dd>
+
+        <dt>
+
+          <code><a href="get_client_metadata_cached.html">get_client_metadata_cached()</a></code>
+
+        </dt>
+        <dd>Get client metadata with caching</dd>
+
+        <dt>
 
           <code><a href="get_clients_in_state.html">get_clients_in_state()</a></code>
 
         </dt>
         <dd>Return metadata for all Municode clients in a given state</dd>
-      </dl><dl><dt>
+
+        <dt>
+
+          <code><a href="get_clients_in_state_cached.html">get_clients_in_state_cached()</a></code>
+
+        </dt>
+        <dd>Get clients in a state with caching</dd>
+
+        <dt>
 
           <code><a href="get_codes_content.html">get_codes_content()</a></code>
 
         </dt>
-        <dd>Get text and metadata for a given node within a given ordinance</dd>
-      </dl><dl><dt>
+        <dd>Code-related API functions (current ordinance versions) Get text and metadata for a given node within a given ordinance</dd>
+
+        <dt>
 
           <code><a href="get_codes_toc.html">get_codes_toc()</a></code>
 
         </dt>
         <dd>Get the Table of Contents for an ordinance</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="get_codes_toc_breadcrumb.html">get_codes_toc_breadcrumb()</a></code>
 
         </dt>
         <dd>Get information about a given node's ancestor(s)</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="get_codes_toc_children.html">get_codes_toc_children()</a></code>
 
         </dt>
         <dd>Get information about a given node's children</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="get_core_content_ordinances.html">get_core_content_ordinances()</a></code>
 
         </dt>
-        <dd>Return information about all ordinances of a given type (e.g., zoning) for a given year</dd>
-      </dl><dl><dt>
+        <dd>Ordinance-related API functions (historical ordinance versions) Return information about all ordinances of a given type for a given year</dd>
 
-          <code><a href="get_endpoint.html">get_endpoint()</a></code>
-
-        </dt>
-        <dd>A helper function to send a GET request to an API endpoint</dd>
-      </dl><dl><dt>
+        <dt>
 
           <code><a href="get_jobs_latest.html">get_jobs_latest()</a></code>
 
         </dt>
-        <dd>This returns data on the most recent job (e.g., the current zoning ordinance, reflecting amendments)</dd>
-      </dl><dl><dt>
+        <dd>Get data on the most recent job</dd>
+
+        <dt>
 
           <code><a href="get_jobs_product.html">get_jobs_product()</a></code>
 
         </dt>
-        <dd>Returns data on all jobs for a given product (e.g., all historical versions of the zoning ordinance)</dd>
-      </dl><dl><dt>
+        <dd>Job-related API functions Returns data on all jobs for a given product</dd>
+
+        <dt>
+
+          <code><a href="get_jurisdiction_products.html">get_jurisdiction_products()</a></code>
+
+        </dt>
+        <dd>Get all products for a jurisdiction in one step</dd>
+
+        <dt>
+
+          <code><a href="get_ordinance_section.html">get_ordinance_section()</a></code>
+
+        </dt>
+        <dd>Workflow helper functions for common multi-step operations Get ordinance section content in one step</dd>
+
+        <dt>
+
+          <code><a href="get_ordinance_toc.html">get_ordinance_toc()</a></code>
+
+        </dt>
+        <dd>Get full table of contents for an ordinance in one step</dd>
+
+        <dt>
 
           <code><a href="get_ordinances_toc.html">get_ordinances_toc()</a></code>
 
         </dt>
         <dd>Obtain metadata about a given ordinance over time</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="get_ordinances_toc_breadcrumb.html">get_ordinances_toc_breadcrumb()</a></code>
 
         </dt>
-        <dd>Get the ancestors of a given node in an ordinance's Table of Contents Corresponds to, for example: https://api.municode.com/ordinancesToc/breadcrumb?nodeId=2023&amp;productId=12429</dd>
-      </dl><dl><dt>
+        <dd>Get the ancestors of a given node in an ordinance's Table of Contents</dd>
+
+        <dt>
 
           <code><a href="get_ordinances_toc_children.html">get_ordinances_toc_children()</a></code>
 
         </dt>
         <dd>Get the children of a given node in an ordinance's Table of Contents</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="get_product_metadata.html">get_product_metadata()</a></code>
 
         </dt>
-        <dd>Get metadata about a specified product</dd>
-      </dl><dl><dt>
+        <dd>Product-related API functions Get metadata about a specified product</dd>
+
+        <dt>
+
+          <code><a href="get_product_metadata_cached.html">get_product_metadata_cached()</a></code>
+
+        </dt>
+        <dd>Get product metadata with caching</dd>
+
+        <dt>
 
           <code><a href="get_states.html">get_states()</a></code>
 
         </dt>
-        <dd>Return metadata about states (and similar) as used by municode</dd>
-      </dl><dl><dt>
+        <dd>State-related API functions Return metadata about states (and similar) as used by municode</dd>
+
+        <dt>
 
           <code><a href="get_states_abbreviation.html">get_states_abbreviation()</a></code>
 
         </dt>
         <dd>Look up state metadata given a state abbreviation</dd>
+
+        <dt>
+
+          <code><a href="get_states_cached.html">get_states_cached()</a></code>
+
+        </dt>
+        <dd>Get states with caching</dd>
       </dl></div>
   </main></div>
 
@@ -157,7 +229,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

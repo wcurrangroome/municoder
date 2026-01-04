@@ -1,13 +1,21 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://wcurrangroome.github.io/municoder/404.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/CLAUDE.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/LICENSE-text.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/LICENSE.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/authors.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/index.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/build_endpoint.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/clean_client_columns.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/clean_html_content.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/clear_cache.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/dot-municoder_cache.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_client_content.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_client_content_cached.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_client_metadata.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_client_metadata_cached.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_clients_in_state.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_clients_in_state_cached.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_codes_content.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_codes_toc.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_codes_toc_breadcrumb.html</loc></url>
@@ -16,12 +24,21 @@
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_endpoint.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_jobs_latest.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_jobs_product.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_jurisdiction_products.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_ordinance_section.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_ordinance_toc.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_ordinances_toc.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_ordinances_toc_breadcrumb.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_ordinances_toc_children.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_product_metadata.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_product_metadata_cached.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_states.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_states_abbreviation.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_states_cached.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/index.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/municoder-package.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/transform_list_response.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/transform_nested_client.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/transform_nested_state.html</loc></url>
 </urlset>
 
