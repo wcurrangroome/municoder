@@ -43,7 +43,7 @@
 <ul><li>
 <strong><code><a href="reference/get_states.html">get_states()</a></code></strong>: List all states/territories with municode.com coverage</li>
 <li>
-<strong><code>get_states_abbreviation(state_abbreviation)</code></strong>: Look up state metadata by abbreviation</li>
+<strong><code>get_state_by_abbreviation(state_abbreviation)</code></strong>: Look up state metadata by abbreviation</li>
 <li>
 <strong><code>get_clients_in_state(state_abbreviation)</code></strong>: Find all municipalities in a state with ordinances on municode.com</li>
 </ul></div>
@@ -52,33 +52,33 @@
 <ul><li>
 <strong><code>get_client_metadata(state_abbreviation, client_name)</code></strong>: Get detailed information about a specific municipality</li>
 <li>
-<strong><code>get_client_content(client_id)</code></strong>: List all ordinance types (products) available for a jurisdiction (e.g., “Zoning”, “Code of Ordinances”)</li>
+<strong><code>get_client_products(client_id)</code></strong>: List all ordinance types (products) available for a jurisdiction (e.g., “Zoning”, “Code of Ordinances”)</li>
 </ul></div>
 <div class="section level3">
 <h3 id="id_3-ordinance-navigation">3. Ordinance Navigation<a class="anchor" aria-label="anchor" href="#id_3-ordinance-navigation"></a></h3>
 <ul><li>
-<strong><code>get_jobs_latest(product_id)</code></strong>: Get the most current version of an ordinance</li>
+<strong><code>get_current_version(product_id)</code></strong>: Get the most current version of an ordinance</li>
 <li>
-<strong><code>get_jobs_product(product_id)</code></strong>: List all historical versions of an ordinance</li>
+<strong><code>get_version_history(product_id)</code></strong>: List all historical versions of an ordinance</li>
 <li>
 <strong><code>get_codes_toc(job_id, product_id)</code></strong>: Get table of contents for an ordinance</li>
 <li>
-<strong><code>get_codes_toc_breadcrumb(job_id, node_id, product_id)</code></strong>: Get ancestor nodes for a specific section</li>
+<strong><code>get_section_ancestors(job_id, node_id, product_id)</code></strong>: Get ancestor nodes for a specific section</li>
 <li>
-<strong><code>get_codes_toc_children(job_id, node_id, product_id)</code></strong>: Get child nodes for a specific section</li>
+<strong><code>get_section_children(job_id, node_id, product_id)</code></strong>: Get child nodes for a specific section</li>
 </ul></div>
 <div class="section level3">
 <h3 id="id_4-content-extraction">4. Content Extraction<a class="anchor" aria-label="anchor" href="#id_4-content-extraction"></a></h3>
 <ul><li>
-<strong><code>get_codes_content(node_id, product_id)</code></strong>: Extract full text and metadata for specific ordinance sections</li>
+<strong><code>get_section_text(node_id, product_id)</code></strong>: Extract full text and metadata for specific ordinance sections</li>
 <li>
 <strong><code>get_ordinances_toc(product_id, node_id)</code></strong>: Get table of contents for ordinances over time</li>
 <li>
-<strong><code>get_ordinances_toc_breadcrumb(product_id, node_id)</code></strong>: Navigate ordinance hierarchy</li>
+<strong><code>get_ordinance_ancestors(product_id, node_id)</code></strong>: Navigate ordinance hierarchy</li>
 <li>
-<strong><code>get_ordinances_toc_children(product_id, node_id)</code></strong>: Get children of ordinance nodes</li>
+<strong><code>get_ordinance_children(product_id, node_id)</code></strong>: Get children of ordinance nodes</li>
 <li>
-<strong><code>get_core_content_ordinances(product_id, node_id)</code></strong>: Get ordinances by year</li>
+<strong><code>list_ordinances(product_id, node_id)</code></strong>: Get ordinances by year</li>
 </ul></div>
 <div class="section level3">
 <h3 id="id_5-product-metadata">5. Product Metadata<a class="anchor" aria-label="anchor" href="#id_5-product-metadata"></a></h3>
@@ -96,20 +96,20 @@
 <span>  <span class="fu">pull</span><span class="op">(</span><span class="va">client_id</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 2. List available ordinances</span></span>
-<span><span class="va">products</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_client_content.html">get_client_content</a></span><span class="op">(</span><span class="va">alexandria_id</span><span class="op">)</span></span>
+<span><span class="va">products</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_client_products.html">get_client_products</a></span><span class="op">(</span><span class="va">alexandria_id</span><span class="op">)</span></span>
 <span><span class="va">zoning_id</span> <span class="op">&lt;-</span> <span class="va">products</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">product_name</span> <span class="op">==</span> <span class="st">"Zoning"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">pull</span><span class="op">(</span><span class="va">product_id</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 3. Get current version</span></span>
-<span><span class="va">job</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_jobs_latest.html">get_jobs_latest</a></span><span class="op">(</span>product_id <span class="op">=</span> <span class="va">zoning_id</span><span class="op">)</span></span>
+<span><span class="va">job</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_current_version.html">get_current_version</a></span><span class="op">(</span>product_id <span class="op">=</span> <span class="va">zoning_id</span><span class="op">)</span></span>
 <span><span class="va">job_id</span> <span class="op">&lt;-</span> <span class="va">job</span> <span class="op">%&gt;%</span> <span class="fu">pull</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 4. Navigate table of contents</span></span>
 <span><span class="va">toc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_codes_toc.html">get_codes_toc</a></span><span class="op">(</span>job_id <span class="op">=</span> <span class="va">job_id</span>, product_id <span class="op">=</span> <span class="va">zoning_id</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 5. Extract specific sections</span></span>
-<span><span class="va">content</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_codes_content.html">get_codes_content</a></span><span class="op">(</span></span>
+<span><span class="va">content</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_section_text.html">get_section_text</a></span><span class="op">(</span></span>
 <span>  product_id <span class="op">=</span> <span class="va">zoning_id</span>,</span>
 <span>  node_id <span class="op">=</span> <span class="st">"ARTIIIREZORE"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -122,9 +122,9 @@
 <li>
 <strong><code>client_id</code></strong>: Unique identifier for a municipality (obtained from <code><a href="reference/get_clients_in_state.html">get_clients_in_state()</a></code>)</li>
 <li>
-<strong><code>product_id</code></strong>: Unique identifier for an ordinance type (obtained from <code><a href="reference/get_client_content.html">get_client_content()</a></code>)</li>
+<strong><code>product_id</code></strong>: Unique identifier for an ordinance type (obtained from <code><a href="reference/get_client_products.html">get_client_products()</a></code>)</li>
 <li>
-<strong><code>job_id</code></strong>: Unique identifier for a specific version of an ordinance (obtained from <code><a href="reference/get_jobs_latest.html">get_jobs_latest()</a></code>)</li>
+<strong><code>job_id</code></strong>: Unique identifier for a specific version of an ordinance (obtained from <code><a href="reference/get_current_version.html">get_current_version()</a></code>)</li>
 <li>
 <strong><code>node_id</code></strong>: Unique identifier for a section within an ordinance (obtained from <code><a href="reference/get_codes_toc.html">get_codes_toc()</a></code>)</li>
 </ol></div>
@@ -180,10 +180,10 @@
 </ul></div>
 <div class="section level2">
 <h2 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a></h2>
-<p>Core dependencies: <code>cachem</code>, <code>dplyr</code>, <code>httr2</code>, <code>janitor</code>, <code>magrittr</code>, <code>memoise</code>, <code>purrr</code>, <code>rlang</code>, <code>stringr</code>, <code>tibble</code>, <code>tidyr</code></p>
+<p>Core dependencies: <code>dplyr</code>, <code>httr2</code>, <code>janitor</code>, <code>magrittr</code>, <code>purrr</code>, <code>rlang</code>, <code>stringr</code>, <code>tibble</code>, <code>tidyr</code></p>
 </div>
 <div class="section level2">
-<h2 id="workflow-helper-functions-new">Workflow Helper Functions (NEW)<a class="anchor" aria-label="anchor" href="#workflow-helper-functions-new"></a></h2>
+<h2 id="workflow-helper-functions">Workflow Helper Functions<a class="anchor" aria-label="anchor" href="#workflow-helper-functions"></a></h2>
 <p>Three convenience functions simplify common multi-step operations:</p>
 <ul><li>
 <strong><code>get_ordinance_section(state_abbr, client_name, product_name, node_id)</code></strong>: Get ordinance content in one call</li>
@@ -194,31 +194,15 @@
 </ul><p>These functions automatically chain multiple API calls and provide better error messages.</p>
 </div>
 <div class="section level2">
-<h2 id="caching-functions-new">Caching Functions (NEW)<a class="anchor" aria-label="anchor" href="#caching-functions-new"></a></h2>
-<p>Cached versions of frequently-used functions for improved performance:</p>
-<ul><li>
-<strong><code><a href="reference/get_states_cached.html">get_states_cached()</a></code></strong>: Indefinite cache (states rarely change)</li>
-<li>
-<strong><code>get_clients_in_state_cached(state_abbr)</code></strong>: 24-hour cache</li>
-<li>
-<strong><code>get_client_metadata_cached(state_abbr, client_name)</code></strong>: 24-hour cache</li>
-<li>
-<strong><code>get_client_content_cached(client_id)</code></strong>: 6-hour cache</li>
-<li>
-<strong><code>get_product_metadata_cached(client_id, product_name)</code></strong>: 6-hour cache</li>
-<li>
-<strong><code><a href="reference/clear_cache.html">clear_cache()</a></code></strong>: Clear all cached data</li>
-</ul></div>
-<div class="section level2">
 <h2 id="notes-for-ai-assistants">Notes for AI Assistants<a class="anchor" aria-label="anchor" href="#notes-for-ai-assistants"></a></h2>
 <ul><li>The package uses <code>renv</code> for dependency management</li>
 <li>README.Rmd generates README.md (edit the .Rmd file, not .md)</li>
 <li>All functions are documented with roxygen2</li>
 <li>The “Tribes” state abbreviation is known to cause errors (see README line 51)</li>
-<li>HTML content in ordinance text is stripped and cleaned in <code><a href="reference/get_codes_content.html">get_codes_content()</a></code>
+<li>HTML content in ordinance text is stripped and cleaned in <code><a href="reference/get_section_text.html">get_section_text()</a></code>
 </li>
 <li>
-<strong>Package structure (RECENTLY REFACTORED)</strong>: The package has been modularized into 11 separate R files:
+<strong>Package structure (RECENTLY REFACTORED)</strong>: The package has been modularized into 10 separate R files:
 <ul><li>
 <code>utils-api.R</code>: API utilities with enhanced error handling</li>
 <li>
@@ -228,9 +212,7 @@
 <li>
 <code>codes.R</code>, <code>ordinances.R</code>: Content retrieval functions</li>
 <li>
-<code>workflows.R</code>: High-level workflow helpers (NEW)</li>
-<li>
-<code>cache.R</code>: Caching layer (NEW)</li>
+<code>workflows.R</code>: High-level workflow helpers</li>
 <li>
 <code>municoder-package.R</code>: Package documentation</li>
 </ul></li>

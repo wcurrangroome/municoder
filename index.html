@@ -53,19 +53,6 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p><strong>municoder</strong> provides an R interface to the <a href="https://municode.com" class="external-link">municode.com</a> API, giving programmatic access to municipal ordinances from 1,000+ jurisdictions across all 50 U.S. states and territories. The package enables researchers, urban planners, and policy analysts to access zoning codes, building ordinances, and other regulatory documents for spatial analysis, policy research, and comparative studies.</p>
-<p>Municode.com hosts comprehensive legal codes and ordinances for municipalities, counties, and other local governments. This package makes it easy to discover, navigate, and extract ordinance text and metadata without manual web scraping.</p>
-</div>
-<div class="section level2">
-<h2 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
-</h2>
-<ul>
-<li>🗺️ <strong>Comprehensive Coverage</strong>: Access ordinances from 1,000+ jurisdictions across all 50 states + DC</li>
-<li>🚀 <strong>Workflow Helpers</strong>: New convenience functions simplify common multi-step operations</li>
-<li>⚡ <strong>Performance</strong>: Built-in caching provides 100x+ speedup for repeated queries</li>
-<li>📊 <strong>Tidy Data</strong>: Returns analysis-ready dataframes with consistent structure</li>
-<li>🔄 <strong>Historical Data</strong>: Access historical versions of ordinances over time</li>
-<li>🛡️ <strong>Robust</strong>: Automatic retry logic and informative error messages</li>
-</ul>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -85,33 +72,23 @@
 <span><span class="va">va_clients</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_clients_in_state.html">get_clients_in_state</a></span><span class="op">(</span><span class="st">"VA"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get all available ordinances for Alexandria, VA (the easy way!)</span></span>
-<span><span class="va">products</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_jurisdiction_products.html">get_jurisdiction_products</a></span><span class="op">(</span><span class="st">"VA"</span>, <span class="st">"Alexandria"</span><span class="op">)</span></span>
+<span><span class="va">products</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_jurisdiction_products.html">get_jurisdiction_products</a></span><span class="op">(</span></span>
+<span>  state_abbreviation <span class="op">=</span> <span class="st">"VA"</span>, </span>
+<span>  client_name <span class="op">=</span> <span class="st">"Alexandria"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get the table of contents for Alexandria's zoning ordinance</span></span>
-<span><span class="va">toc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_ordinance_toc.html">get_ordinance_toc</a></span><span class="op">(</span><span class="st">"VA"</span>, <span class="st">"Alexandria"</span>, <span class="st">"Zoning"</span><span class="op">)</span></span>
+<span><span class="va">toc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_ordinance_toc.html">get_ordinance_toc</a></span><span class="op">(</span></span>
+<span>  state_abbreviation <span class="op">=</span> <span class="st">"VA"</span>, </span>
+<span>  client_name <span class="op">=</span> <span class="st">"Alexandria"</span>, </span>
+<span>  product_name <span class="op">=</span> <span class="st">"Zoning"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Extract a specific section of the ordinance</span></span>
-<span><span class="va">content</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_ordinance_section.html">get_ordinance_section</a></span><span class="op">(</span><span class="st">"VA"</span>, <span class="st">"Alexandria"</span>, <span class="st">"Zoning"</span>, <span class="st">"ARTIIIREZORE"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">content</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_ordinance_section.html">get_ordinance_section</a></span><span class="op">(</span></span>
+<span>  state_abbreviation <span class="op">=</span> <span class="st">"VA"</span>, </span>
+<span>  client_name <span class="op">=</span> <span class="st">"Alexandria"</span>, </span>
+<span>  product_name <span class="op">=</span> <span class="st">"Zoning"</span>, </span>
+<span>  node_id <span class="op">=</span> <span class="st">"ARTIIIREZORE"</span><span class="op">)</span></span></code></pre></div>
 <p>The new workflow helper functions (<code><a href="reference/get_jurisdiction_products.html">get_jurisdiction_products()</a></code>, <code><a href="reference/get_ordinance_toc.html">get_ordinance_toc()</a></code>, <code><a href="reference/get_ordinance_section.html">get_ordinance_section()</a></code>) automatically handle the multi-step process of looking up IDs and navigating the API, making common tasks much simpler.</p>
-</div>
-<div class="section level2">
-<h2 id="performance-tips">Performance Tips<a class="anchor" aria-label="anchor" href="#performance-tips"></a>
-</h2>
-<p>Use the cached versions of functions for significantly better performance on repeated queries:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># First call hits the API</span></span>
-<span><span class="va">states</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_states_cached.html">get_states_cached</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Subsequent calls are instant (cached)</span></span>
-<span><span class="va">states</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_states_cached.html">get_states_cached</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Cached versions available for frequently-used functions</span></span>
-<span><span class="va">clients</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_clients_in_state_cached.html">get_clients_in_state_cached</a></span><span class="op">(</span><span class="st">"VA"</span><span class="op">)</span></span>
-<span><span class="va">metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_client_metadata_cached.html">get_client_metadata_cached</a></span><span class="op">(</span><span class="st">"VA"</span>, <span class="st">"Alexandria"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Clear cache when you need fresh data</span></span>
-<span><span class="fu"><a href="reference/clear_cache.html">clear_cache</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Cached functions store results in memory with appropriate TTLs: - <code><a href="reference/get_states_cached.html">get_states_cached()</a></code>: Indefinite (states rarely change) - <code><a href="reference/get_clients_in_state_cached.html">get_clients_in_state_cached()</a></code>: 24 hours - <code><a href="reference/get_client_metadata_cached.html">get_client_metadata_cached()</a></code>: 24 hours - <code><a href="reference/get_client_content_cached.html">get_client_content_cached()</a></code>: 6 hours - <code><a href="reference/get_product_metadata_cached.html">get_product_metadata_cached()</a></code>: 6 hours</p>
 </div>
 <div class="section level2">
 <h2 id="common-workflows">Common Workflows<a class="anchor" aria-label="anchor" href="#common-workflows"></a>
@@ -119,7 +96,7 @@
 <div class="section level3">
 <h3 id="discovery-find-jurisdictions-and-their-ordinances">Discovery: Find jurisdictions and their ordinances<a class="anchor" aria-label="anchor" href="#discovery-find-jurisdictions-and-their-ordinances"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get all states</span></span>
 <span><span class="va">states</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_states.html">get_states</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -135,29 +112,32 @@
 <div class="section level3">
 <h3 id="navigation-explore-ordinance-structure">Navigation: Explore ordinance structure<a class="anchor" aria-label="anchor" href="#navigation-explore-ordinance-structure"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get table of contents (the easy way)</span></span>
 <span><span class="va">toc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_ordinance_toc.html">get_ordinance_toc</a></span><span class="op">(</span><span class="st">"VA"</span>, <span class="st">"Alexandria"</span>, <span class="st">"Zoning"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Or do it step-by-step for more control</span></span>
 <span><span class="va">client_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_client_metadata.html">get_client_metadata</a></span><span class="op">(</span><span class="st">"VA"</span>, <span class="st">"Alexandria"</span><span class="op">)</span><span class="op">$</span><span class="va">client_id</span></span>
-<span><span class="va">product_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_client_content.html">get_client_content</a></span><span class="op">(</span><span class="va">client_id</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">product_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_client_products.html">get_client_products</a></span><span class="op">(</span><span class="va">client_id</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">product_name</span> <span class="op">==</span> <span class="st">"Zoning"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">pull</span><span class="op">(</span><span class="va">product_id</span><span class="op">)</span></span>
-<span><span class="va">job_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_jobs_latest.html">get_jobs_latest</a></span><span class="op">(</span><span class="va">product_id</span><span class="op">)</span><span class="op">$</span><span class="va">id</span></span>
+<span><span class="va">job_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_current_version.html">get_current_version</a></span><span class="op">(</span><span class="va">product_id</span><span class="op">)</span><span class="op">$</span><span class="va">id</span></span>
 <span><span class="va">toc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_codes_toc.html">get_codes_toc</a></span><span class="op">(</span><span class="va">job_id</span>, <span class="va">product_id</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="extraction-get-ordinance-text">Extraction: Get ordinance text<a class="anchor" aria-label="anchor" href="#extraction-get-ordinance-text"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract a specific section (the easy way)</span></span>
 <span><span class="va">section</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_ordinance_section.html">get_ordinance_section</a></span><span class="op">(</span><span class="st">"VA"</span>, <span class="st">"Alexandria"</span>, <span class="st">"Zoning"</span>, <span class="st">"ARTIIIREZORE"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get all child sections and their content</span></span>
 <span><span class="va">children_ids</span> <span class="op">&lt;-</span> <span class="va">section</span> <span class="op">%&gt;%</span> <span class="fu">pull</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
-<span><span class="va">all_content</span> <span class="op">&lt;-</span> <span class="fu">map_dfr</span><span class="op">(</span><span class="va">children_ids</span>,</span>
-<span>  <span class="op">~</span><span class="fu"><a href="reference/get_codes_content.html">get_codes_content</a></span><span class="op">(</span>product_id <span class="op">=</span> <span class="va">product_id</span>, node_id <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">all_content</span> <span class="op">&lt;-</span> <span class="fu">map_dfr</span><span class="op">(</span></span>
+<span>  <span class="va">children_ids</span>,</span>
+<span>  <span class="op">~</span> <span class="fu"><a href="reference/get_section_text.html">get_section_text</a></span><span class="op">(</span></span>
+<span>    product_id <span class="op">=</span> <span class="va">product_id</span>, </span>
+<span>    node_id <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -167,7 +147,7 @@
 <h3 id="spatial-coverage-analysis">Spatial Coverage Analysis<a class="anchor" aria-label="anchor" href="#spatial-coverage-analysis"></a>
 </h3>
 <p>Map the geographic distribution of jurisdictions with ordinances on municode.com:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_states</span> <span class="op">&lt;-</span> <span class="fu">municoder</span><span class="fu">::</span><span class="fu"><a href="reference/get_states.html">get_states</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">all_clients</span> <span class="op">&lt;-</span> <span class="va">all_states</span> <span class="op">%&gt;%</span></span>
@@ -188,36 +168,24 @@
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu">geom_sf</span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">states_sf</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"lightgrey"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu">labs</span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"municode.com Has Coverage across All 51 States"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Number of entities listed on municode.com, by state"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Municode Clients Span All 51 States"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"Entities with ordinances on municode.com"</span> <span class="op">%&gt;%</span> <span class="fu">str_wrap</span><span class="op">(</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu">scale_fill_continuous</span><span class="op">(</span>trans <span class="op">=</span> <span class="st">"reverse"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">urbnthemes</span><span class="fu">::</span><span class="fu">theme_urbn_map</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/README-map%20of%20municode%20coverage%20by%20state-1.png" alt="plot of chunk map of municode coverage by state" width="100%"><p class="caption">
-plot of chunk map of municode coverage by state
-</p>
-</div>
+<p><img src="reference/figures/README-map-of-municode-coverage-by-state-1.png" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="comparative-zoning-analysis">Comparative Zoning Analysis<a class="anchor" aria-label="anchor" href="#comparative-zoning-analysis"></a>
 </h3>
 <p>Compare zoning ordinance language across different zones. This example examines the “Purpose” statements for Alexandria, VA’s residential zones to identify policy priorities:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get all residential zones using the workflow helper</span></span>
 <span><span class="va">content</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_ordinance_section.html">get_ordinance_section</a></span><span class="op">(</span><span class="st">"VA"</span>, <span class="st">"Alexandria"</span>, <span class="st">"Zoning"</span>, <span class="st">"ARTIIIREZORE"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `dplyr::mutate()`:</span></span>
-<span><span class="co">#&gt; i In argument: `dplyr::across(dplyr::where(is.list), unlist)`.</span></span>
-<span><span class="co">#&gt; Caused by error in `across()`:</span></span>
-<span><span class="co">#&gt; ! Can't compute column `Features`.</span></span>
-<span><span class="co">#&gt; Caused by error in `dplyr_internal_error()`:</span></span>
 <span></span>
 <span><span class="co"># Extract all child zone sections</span></span>
 <span><span class="va">zone_ids</span> <span class="op">&lt;-</span> <span class="va">content</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: object 'content' not found</span></span>
 <span><span class="va">all_zones</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_dfr</a></span><span class="op">(</span><span class="va">zone_ids</span>,</span>
-<span>  <span class="op">~</span> <span class="fu"><a href="reference/get_codes_content.html">get_codes_content</a></span><span class="op">(</span>product_id <span class="op">=</span> <span class="fl">12429</span>, node_id <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: object 'zone_ids' not found</span></span>
+<span>  <span class="op">~</span> <span class="fu"><a href="reference/get_section_text.html">get_section_text</a></span><span class="op">(</span>product_id <span class="op">=</span> <span class="fl">12429</span>, node_id <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Filter to Purpose statements</span></span>
 <span><span class="va">purpose_statements</span> <span class="op">&lt;-</span> <span class="va">all_zones</span> <span class="op">%&gt;%</span></span>
@@ -225,54 +193,13 @@ plot of chunk map of municode coverage by state
 <span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">content</span><span class="op">)</span>,</span>
 <span>    <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">heading</span>, <span class="st">"Purpose"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">heading</span>, <span class="va">content</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: object 'all_zones' not found</span></span>
 <span></span>
-<span><span class="co"># Display the results</span></span>
-<span><span class="va">purpose_statements</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">content</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: object 'purpose_statements' not found</span></span></code></pre></div>
-<p><strong>Insight</strong>: Analysis reveals that the RMF zone is unique in explicitly mentioning housing affordability in its purpose statement, while other residential zones focus on density caps and neighborhood character. This raises interesting policy questions about why affordability isn’t a stated goal for other residential zones.</p>
+<span><span class="co"># Do any zones mention affordability?</span></span>
+<span><span class="va">purpose_statements</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">content</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">keep</span><span class="op">(</span><span class="op">~</span> <span class="fu">str_detect</span><span class="op">(</span><span class="va">.x</span>, <span class="st">"affordability|affordable"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] " The RMF zone is established to provide land areas for multi-unit residential development and to enhance or preserve long-term affordability of housing. The zone would also permit limited neighborhood-serving commercial uses. "</span></span></code></pre></div>
 </div>
-</div>
-<div class="section level2">
-<h2 id="use-cases">Use Cases<a class="anchor" aria-label="anchor" href="#use-cases"></a>
-</h2>
-<p>municoder supports a variety of research and analysis applications:</p>
-<ul>
-<li>
-<strong>Comparative Policy Analysis</strong>: Compare ordinance language across jurisdictions to identify policy differences</li>
-<li>
-<strong>Affordable Housing Research</strong>: Analyze zoning codes for inclusionary zoning, density bonuses, and affordability provisions</li>
-<li>
-<strong>Historical Tracking</strong>: Monitor how ordinances change over time using historical job data</li>
-<li>
-<strong>Spatial Analysis</strong>: Map regulatory patterns across regions (e.g., parking requirements, density limits)</li>
-<li>
-<strong>Text Mining</strong>: Extract and analyze regulatory language at scale using NLP techniques</li>
-<li>
-<strong>Development Research</strong>: Study how land use regulations vary by jurisdiction type or region</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="getting-help">Getting Help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
-</h2>
-<ul>
-<li>
-<strong>Documentation</strong>: Visit the <a href="https://wcurrangroome.github.io/municoder/">package website</a> for full function reference</li>
-<li>
-<strong>Issues</strong>: Report bugs or request features on <a href="https://github.com/wcurrangroome/municoder/issues" class="external-link">GitHub Issues</a>
-</li>
-<li>
-<strong>Questions</strong>: Open a discussion on the GitHub repository</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="learn-more">Learn More<a class="anchor" aria-label="anchor" href="#learn-more"></a>
-</h2>
-<ul>
-<li>See <code>vignette("municoder")</code> for detailed examples</li>
-<li>Check out the <a href="https://api.municode.com" class="external-link">API documentation</a> to understand endpoint details</li>
-<li>Read <a href="REFACTORING.html">REFACTORING.md</a> for information on recent package improvements</li>
-</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
