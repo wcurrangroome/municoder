@@ -20,7 +20,7 @@ get_states <- function() {
 #'
 #' @returns A dataframe with three columns: `state_id`, `state_name`, `state_abbreviation.`
 #' @export
-get_states_abbreviation <- function(state_abbreviation) {
+get_state_by_abbreviation <- function(state_abbreviation) {
   result <-
     build_endpoint(
       domain = "States",

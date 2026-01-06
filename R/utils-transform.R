@@ -29,10 +29,21 @@ transform_nested_state <- function(df) {
 #' @return Dataframe with Client columns unnested
 #' @keywords internal
 transform_nested_client <- function(df) {
-  df %>%
+  result <- df %>%
     tidyr::unnest_wider(Client, names_sep = "_") %>%
-    tidyr::unnest_wider(Client_State) %>%
-    dplyr::mutate(dplyr::across(dplyr::where(is.list), unlist))
+    tidyr::unnest_wider(Client_State)
+
+  # Try to unlist list columns, but don't fail if some can't be unlisted
+  tryCatch({
+    result <- result %>%
+      dplyr::mutate(dplyr::across(dplyr::where(is.list), unlist))
+  }, error = function(e) {
+    # If unlisting fails, just select out any remaining list columns
+    result <- result %>%
+      dplyr::select(dplyr::where(~ !is.list(.x)))
+  })
+
+  return(result)
 }
 
 #' Clean HTML content from ordinance text
@@ -42,8 +53,10 @@ transform_nested_client <- function(df) {
 clean_html_content <- function(content) {
   content %>%
     stringr::str_replace_all(c(
-      "<.*>|\\\n|\\&nbsp" = "",
-      "\\h+" = " "
+      "<.*?>" = "",           # Remove HTML tags (non-greedy)
+      "\\\n" = "",            # Remove newlines
+      "\\&nbsp;" = " ",       # Replace &nbsp; with space
+      "\\s+" = " "            # Collapse multiple spaces
     ))
 }
 

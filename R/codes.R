@@ -10,9 +10,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' get_codes_content(node_id = "SUHITA", product_id = "12429")
+#' get_section_text(node_id = "SUHITA", product_id = "12429")
 #' }
-get_codes_content <- function(node_id = NULL, product_id) {
+get_section_text <- function(node_id = NULL, product_id) {
   result <-
     build_endpoint(
       domain = "CodesContent",
@@ -106,7 +106,7 @@ get_codes_toc <- function(job_id, product_id) {
 #' @param product_id A unique identifier for a product
 #'
 #' @export
-get_codes_toc_breadcrumb <- function(job_id, node_id, product_id) {
+get_section_ancestors <- function(job_id, node_id, product_id) {
   result <-
     build_endpoint(
       domain = "codesToc",
@@ -136,9 +136,9 @@ get_codes_toc_breadcrumb <- function(job_id, node_id, product_id) {
 #' @export
 #' @examples
 #' \dontrun{
-#' get_codes_toc_children(job_id = 426172, node_id = "ARTIGERE", product_id = 12429)
+#' get_section_children(job_id = 426172, node_id = "ARTIGERE", product_id = 12429)
 #' }
-get_codes_toc_children <- function(job_id, node_id, product_id) {
+get_section_children <- function(job_id, node_id, product_id) {
   result <-
     build_endpoint(
       domain = "codesToc",

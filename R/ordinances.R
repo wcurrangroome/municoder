@@ -7,7 +7,7 @@
 #'
 #' @returns A dataframe comprising ordinances
 #' @export
-get_core_content_ordinances <- function(product_id, node_id = NULL) {
+list_ordinances <- function(product_id, node_id = NULL) {
   endpoint <- build_endpoint(
     domain = "CoreContent",
     subdomain = "Ordinances",
@@ -15,10 +15,19 @@ get_core_content_ordinances <- function(product_id, node_id = NULL) {
 
   result <- endpoint %>%
     get_endpoint() %>%
-    tibble::enframe() %>%
-    tidyr::unnest_longer(value) %>%
-    tidyr::unnest_wider(value) %>%
-    janitor::clean_names()
+    tibble::enframe()
+
+  # Handle different response structures based on whether node_id is provided
+  if (any(sapply(result$value, is.list))) {
+    result <- result %>%
+      tidyr::unnest_longer(value) %>%
+      tidyr::unnest_wider(value) %>%
+      janitor::clean_names()
+  } else {
+    result <- result %>%
+      tidyr::pivot_wider() %>%
+      janitor::clean_names()
+  }
 
   return(result)
 }
@@ -55,7 +64,7 @@ get_ordinances_toc <- function(product_id, node_id = NA) {
 #' @param node_id A unique identifier for a node within the specified product (ordinance)
 #'
 #' @export
-get_ordinances_toc_breadcrumb <- function(product_id, node_id) {
+get_ordinance_ancestors <- function(product_id, node_id) {
   result <-
     build_endpoint(
       domain = "ordinancesToc",
@@ -78,7 +87,7 @@ get_ordinances_toc_breadcrumb <- function(product_id, node_id) {
 #' @param product_id A unique identifier for a product
 #' @param node_id A unique identifier for a node within the specified product (ordinance)
 #' @export
-get_ordinances_toc_children <- function(product_id, node_id) {
+get_ordinance_children <- function(product_id, node_id) {
   result <-
     build_endpoint(
       domain = "ordinancesToc",

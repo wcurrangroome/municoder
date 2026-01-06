@@ -44,7 +44,7 @@ get_ordinance_section <- function(state_abbreviation, client_name, product_name,
   }
 
   # Step 3: Get content
-  content <- get_codes_content(node_id, product_id)
+  content <- get_section_text(node_id, product_id)
 
   return(content)
 }
@@ -91,7 +91,7 @@ get_ordinance_toc <- function(state_abbreviation, client_name, product_name) {
   }
 
   # Step 3: Get latest job
-  job <- get_jobs_latest(product_id)
+  job <- get_current_version(product_id)
   job_id <- job$id
 
   if (is.null(job_id) || length(job_id) == 0) {
@@ -136,7 +136,7 @@ get_jurisdiction_products <- function(state_abbreviation, client_name) {
   }
 
   # Get products
-  products <- get_client_content(client_id)
+  products <- get_client_products(client_id)
 
   return(products)
 }

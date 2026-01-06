@@ -54,7 +54,7 @@ get_clients_in_state <- function(state_abbreviation) {
   return(result)
 }
 
-#' Obtain metadata for a jurisdiction's regulatory documents hosted on Municode
+#' Obtain products available for a jurisdiction
 #' @description Corresponds to, for example: https://api.municode.com/ClientContent/12053
 #' @param client_id A code corresponding to a given client; this can be obtained from `get_clients_in_state()`
 #'
@@ -63,16 +63,26 @@ get_clients_in_state <- function(state_abbreviation) {
 #'
 #' @examples
 #' \dontrun{
-#' get_client_content(980) ## Alexandria, VA
+#' get_client_products(980) ## Alexandria, VA
 #' }
-get_client_content <- function(client_id) {
-  result <-
+get_client_products <- function(client_id) {
+  raw_result <-
     build_endpoint(
       domain = "ClientContent") %>%
       stringr::str_c("/", client_id) %>%
     get_endpoint()  %>%
     tibble::enframe() %>%
-    tidyr::pivot_wider() %>%
+    tidyr::pivot_wider()
+
+  # Check if codes column exists
+  if (!"codes" %in% names(raw_result)) {
+    stop(sprintf(
+      "Failed to fetch products for client_id %s. Client may not exist or have no products available.",
+      client_id
+    ), call. = FALSE)
+  }
+
+  result <- raw_result %>%
     ## selecting only codes; not including "features" nor "munidocs" in the returned data
     dplyr::select(codes) %>%
     tidyr::unnest_longer(codes) %>%

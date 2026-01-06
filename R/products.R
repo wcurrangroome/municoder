@@ -32,7 +32,7 @@ get_product_metadata <- function(client_id, product_name) {
       dplyr::matches("client")) %>%
     dplyr::select(-c(client_pop_range_id, client_classification_id, client_show_advance_sheet, dplyr::matches("client_library|meetings"))) %>%
     dplyr::rename_with(~ stringr::str_replace_all(.x, "client_client", "client")) %>%
-    dplyr::mutate(dplyr::across(dplyr::where(is.list), unlist))
+    dplyr::select(dplyr::where(~ !is.list(.x) || (is.list(.x) && length(.x[[1]]) == 1)))
 
   return(result)
 }
