@@ -203,6 +203,9 @@ purpose_statements %>%
   : Get information about a given node's ancestor(s)
 - [`get_section_children()`](https://wcurrangroome.github.io/municoder/reference/get_section_children.md)
   : Get information about a given node's children
+- [`get_section_html()`](https://wcurrangroome.github.io/municoder/reference/get_section_html.md)
+  : Get raw HTML content and markdown for a given node within a given
+  ordinance
 - [`get_section_text()`](https://wcurrangroome.github.io/municoder/reference/get_section_text.md)
   : Code-related API functions (current ordinance versions) Get text and
   metadata for a given node within a given ordinance

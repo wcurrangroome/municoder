@@ -8,6 +8,7 @@
 <url><loc>https://wcurrangroome.github.io/municoder/reference/build_endpoint.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/clean_client_columns.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/clean_html_content.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/convert_html_tables_to_markdown.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_client_metadata.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_client_products.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_clients_in_state.html</loc></url>
@@ -23,10 +24,12 @@
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_product_metadata.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_section_ancestors.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_section_children.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_section_html.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_section_text.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_state_by_abbreviation.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_states.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_version_history.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/html_to_markdown.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/index.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/list_ordinances.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/municoder-package.html</loc></url>
