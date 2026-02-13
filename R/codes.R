@@ -99,6 +99,46 @@ get_codes_toc <- function(job_id, product_id) {
   return(result)
 }
 
+#' Get raw HTML content and markdown for a given node within a given ordinance
+#' @description Identical to `get_section_text()` but preserves the raw HTML in a
+#'   `content_html` column instead of stripping tags, and adds a `content_markdown`
+#'   column with a markdown conversion. This is critical for extracting data from
+#'   sections that contain HTML tables (e.g., dimensional standards).
+#' @param node_id A unique identifier for a node within the specified product (ordinance)
+#' @param product_id A unique identifier for a product
+#'
+#' @returns A dataframe with the raw HTML content and metadata for the specified node.
+#'   Columns: `id`, `heading`, `node_type`, `content_html`, `content_markdown`.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' get_section_html(node_id = "SUHITA", product_id = "12429")
+#' }
+get_section_html <- function(node_id = NULL, product_id) {
+  result <-
+    build_endpoint(
+      domain = "CodesContent",
+      parameters = c(nodeId = node_id, productId = product_id)) %>%
+    get_endpoint() %>%
+    tibble::enframe() %>%
+    tidyr::pivot_wider()
+
+  docs <- result %>%
+    dplyr::select(Docs) %>%
+    tidyr::unnest_longer(Docs) %>%
+    tidyr::unnest_wider(Docs) %>%
+    janitor::clean_names() %>%
+    dplyr::transmute(
+      id,
+      node_type = "current",
+      heading = title,
+      content_html = content,
+      content_markdown = html_to_markdown(content))
+
+  return(docs)
+}
+
 #' Get information about a given node's ancestor(s)
 #' @description Corresponds to, for example: https://api.municode.com/codesToc/breadcrumb?jobId=426172&nodeId=THZOORALVI&productId=12429
 #' @param job_id A unique identifier for a job
