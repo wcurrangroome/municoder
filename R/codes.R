@@ -179,16 +179,26 @@ get_section_ancestors <- function(job_id, node_id, product_id) {
 #' get_section_children(job_id = 426172, node_id = "ARTIGERE", product_id = 12429)
 #' }
 get_section_children <- function(job_id, node_id, product_id) {
-  result <-
-    build_endpoint(
-      domain = "codesToc",
-      subdomain = "children",
-      parameters = c(jobId = job_id, nodeId = node_id, productId = product_id)) %>%
-    get_endpoint() %>%
-    tibble::enframe() %>%
-    tidyr::unnest_wider(value) %>%
-    tidyr::unnest_wider(Data) %>%
-    janitor::clean_names()
+  raw <- build_endpoint(
+    domain = "codesToc",
+    subdomain = "children",
+    parameters = c(jobId = job_id, nodeId = node_id, productId = product_id)) %>%
+    get_endpoint()
 
-  return(result)
+  if (length(raw) == 0) {
+    return(tibble::tibble(
+      id = character(),
+      heading = character(),
+      has_children = logical()))
+  }
+
+  result <- raw %>%
+    tibble::enframe() %>%
+    tidyr::unnest_wider(value)
+
+  if ("Data" %in% names(result)) {
+    result <- result %>% tidyr::unnest_wider(Data)
+  }
+
+  result %>% janitor::clean_names()
 }
