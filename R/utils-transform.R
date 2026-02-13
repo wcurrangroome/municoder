@@ -129,6 +129,7 @@ convert_html_tables_to_markdown <- function(html) {
       ## Add separator after the first row (header)
       first_row <- md_rows[[1]]
       ncols <- stringr::str_count(first_row, "\\|") - 1
+      if (ncols < 1) return(current_html)
       separator <- stringr::str_c("|", stringr::str_c(rep(" --- |", ncols), collapse = ""))
       md_table <- stringr::str_c(
         c("\n", first_row, separator, md_rows[-1], "\n"),
