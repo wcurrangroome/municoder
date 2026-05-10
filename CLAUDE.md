@@ -59,6 +59,7 @@ jurisdictions.
 ## Typical Workflow
 
 ``` r
+
 # 1. Find a jurisdiction
 clients <- get_clients_in_state("VA")
 alexandria_id <- clients %>%

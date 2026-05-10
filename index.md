@@ -17,6 +17,7 @@ You can install the development version of
 so:
 
 ``` r
+
 renv::install("wcurrangroome/municoder")
 ```
 
@@ -25,6 +26,7 @@ renv::install("wcurrangroome/municoder")
 Get started with municoder in just a few lines:
 
 ``` r
+
 library(municoder)
 
 # Get all jurisdictions in Virginia
@@ -61,6 +63,7 @@ navigating the API, making common tasks much simpler.
 ### Discovery: Find jurisdictions and their ordinances
 
 ``` r
+
 # Get all states
 states <- get_states()
 
@@ -77,6 +80,7 @@ products <- get_jurisdiction_products("VA", "Alexandria")
 ### Navigation: Explore ordinance structure
 
 ``` r
+
 # Get table of contents (the easy way)
 toc <- get_ordinance_toc("VA", "Alexandria", "Zoning")
 
@@ -92,6 +96,7 @@ toc <- get_codes_toc(job_id, product_id)
 ### Extraction: Get ordinance text
 
 ``` r
+
 # Extract a specific section (the easy way)
 section <- get_ordinance_section("VA", "Alexandria", "Zoning", "ARTIIIREZORE")
 
@@ -112,6 +117,7 @@ Map the geographic distribution of jurisdictions with ordinances on
 municode.com:
 
 ``` r
+
 all_states <- municoder::get_states()
 
 all_clients <- all_states %>%
@@ -147,6 +153,7 @@ examines the “Purpose” statements for Alexandria, VA’s residential zones
 to identify policy priorities:
 
 ``` r
+
 # Get all residential zones using the workflow helper
 content <- get_ordinance_section("VA", "Alexandria", "Zoning", "ARTIIIREZORE")
 
