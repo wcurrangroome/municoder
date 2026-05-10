@@ -36,6 +36,20 @@ get_version_history <- function(product_id) {
 #' @param product_id A unique identifier for a product
 #' @export
 get_current_version <- function(product_id) {
+  ## Some products (e.g., Salem, OR / product_id 15441) return an empty
+  ## `Product` object from /Jobs/latest, which means downstream nested
+  ## fields like `ProductContentType` are absent. Unnest each nested
+  ## column only when it exists and has content.
+  safe_unnest_wider <- function(df, col, names_sep = NULL) {
+    if (!col %in% names(df)) return(df)
+    val <- df[[col]]
+    if (is.list(val) && all(lengths(val) == 0)) {
+      df[[col]] <- NULL
+      return(df)
+    }
+    tidyr::unnest_wider(df, dplyr::all_of(col), names_sep = names_sep)
+  }
+
   result <-
     build_endpoint(
       domain = "Jobs",
@@ -44,11 +58,11 @@ get_current_version <- function(product_id) {
     get_endpoint() %>%
     tibble::enframe()  %>%
     tidyr::pivot_wider() %>%
-    tidyr::unnest_wider(Product, names_sep = "") %>%
-    tidyr::unnest_wider(ProductContentType, names_sep = "_") %>%
-    tidyr::unnest_wider(ProductFeatures) %>%
-    tidyr::unnest_wider(ProductClient) %>%
-    tidyr::unnest_wider(State) %>%
+    safe_unnest_wider("Product", names_sep = "") %>%
+    safe_unnest_wider("ProductContentType", names_sep = "_") %>%
+    safe_unnest_wider("ProductFeatures") %>%
+    safe_unnest_wider("ProductClient") %>%
+    safe_unnest_wider("State") %>%
     janitor::clean_names() %>%
     dplyr::mutate(dplyr::across(.cols = dplyr::where(is.list), unlist))
 

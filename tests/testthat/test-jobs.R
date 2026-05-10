@@ -22,6 +22,20 @@ test_that("get_current_version unnests nested structures", {
   expect_false(any(sapply(result, is.list)))
 })
 
+test_that("get_current_version handles empty Product object in response", {
+  skip_on_cran()
+  skip_if_offline()
+
+  # Salem, OR (product_id 15441) returns Jobs/latest with `Product: {}`,
+  # which historically crashed because nested fields like ProductContentType
+  # were absent. The function should still return a valid tibble with `id`.
+  result <- get_current_version(15441)
+
+  expect_s3_class(result, "data.frame")
+  expect_equal(nrow(result), 1)
+  expect_true("id" %in% names(result))
+})
+
 test_that("get_current_version handles invalid product_id", {
   skip_on_cran()
   skip_if_offline()
