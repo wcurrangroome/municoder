@@ -47,6 +47,6 @@ test_that("get_state_by_abbreviation handles invalid abbreviations", {
 
   expect_error(
     get_state_by_abbreviation("ZZ"),
-    "Failed to fetch|Can't compute column"
+    "Failed to fetch|Municode API request failed|Can't compute column"
   )
 })

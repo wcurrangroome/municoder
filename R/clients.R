@@ -24,7 +24,7 @@ get_client_metadata <- function(state_abbreviation, client_name) {
     transform_nested_state() %>%
     janitor::clean_names()
 
-  return(result)
+  result
 }
 
 #' Return metadata for all Municode clients in a given state
@@ -51,7 +51,7 @@ get_clients_in_state <- function(state_abbreviation) {
     janitor::clean_names() %>%
     clean_client_columns()
 
-  return(result)
+  result
 }
 
 #' Obtain products available for a jurisdiction
@@ -74,7 +74,6 @@ get_client_products <- function(client_id) {
     tibble::enframe() %>%
     tidyr::pivot_wider()
 
-  # Check if codes column exists
   if (!"codes" %in% names(raw_result)) {
     stop(sprintf(
       "Failed to fetch products for client_id %s. Client may not exist or have no products available.",
@@ -89,5 +88,5 @@ get_client_products <- function(client_id) {
     tidyr::unnest_wider(codes) %>%
     janitor::clean_names()
 
-  return(result)
+  result
 }

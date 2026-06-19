@@ -4,12 +4,12 @@
 \alias{get_ordinances_toc}
 \title{Obtain metadata about a given ordinance over time}
 \usage{
-get_ordinances_toc(product_id, node_id = NA)
+get_ordinances_toc(node_id = NULL, product_id)
 }
 \arguments{
-\item{product_id}{A unique identifier for a product}
-
 \item{node_id}{A unique identifier for a node within the specified product (ordinance)}
+
+\item{product_id}{A unique identifier for a product}
 }
 \description{
 Corresponds to, for example: https://api.municode.com/ordinancesToc?nodeId=2023&productId=12429

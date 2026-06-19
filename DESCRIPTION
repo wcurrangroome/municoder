@@ -3,21 +3,23 @@ Title: Interface to the municode.com API
 Version: 0.0.0.9000
 Authors@R: 
     person("Will", "Curran-Groome", , "wcurrangroome@gmail.com", role = c("aut", "cre"))
-Description: Access and programmatically navigated ordinances and associated metadata relating to regulatory documents hosted on municode.com.
+Description: Access and programmatically navigate ordinances and associated metadata relating to regulatory documents hosted on municode.com.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports:
     dplyr,
     httr2,
     janitor,
     magrittr,
+    purrr,
     rlang,
     stringr,
     tibble,
-    tidyr
+    tidyr,
+    utils
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://wcurrangroome.github.io/municoder/
+Config/roxygen2/version: 8.0.0

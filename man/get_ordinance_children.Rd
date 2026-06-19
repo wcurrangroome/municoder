@@ -4,12 +4,12 @@
 \alias{get_ordinance_children}
 \title{Get the children of a given node in an ordinance's Table of Contents}
 \usage{
-get_ordinance_children(product_id, node_id)
+get_ordinance_children(node_id, product_id)
 }
 \arguments{
-\item{product_id}{A unique identifier for a product}
-
 \item{node_id}{A unique identifier for a node within the specified product (ordinance)}
+
+\item{product_id}{A unique identifier for a product}
 }
 \description{
 Corresponds to, for example: https://api.municode.com/ordinancesToc/children?productId=12429&nodeId=2023

@@ -1,5 +1,42 @@
 #' @title Workflow helper functions for common multi-step operations
 
+#' Resolve a client_id from a state and client name, erroring if not found
+#' @param state_abbreviation Two-character state code
+#' @param client_name Name of the municipality
+#' @return A single client_id
+#' @keywords internal
+resolve_client_id <- function(state_abbreviation, client_name) {
+  client_id <- get_client_metadata(state_abbreviation, client_name)$client_id
+
+  if (is.null(client_id) || length(client_id) == 0) {
+    stop(sprintf(
+      "Could not find client '%s' in state '%s'",
+      client_name, state_abbreviation
+    ), call. = FALSE)
+  }
+
+  client_id
+}
+
+#' Resolve a product_id from a client_id and product name, erroring if not found
+#' @param client_id A unique identifier for a client
+#' @param product_name Name of the product
+#' @param client_name Name of the municipality, used only for the error message
+#' @return A single product_id
+#' @keywords internal
+resolve_product_id <- function(client_id, product_name, client_name) {
+  product_id <- get_product_metadata(client_id, product_name)$product_id
+
+  if (is.null(product_id) || length(product_id) == 0) {
+    stop(sprintf(
+      "Could not find product '%s' for client '%s'",
+      product_name, client_name
+    ), call. = FALSE)
+  }
+
+  product_id
+}
+
 #' Get ordinance section content in one step
 #' @description Convenience function that chains together multiple API calls to retrieve
 #' ordinance section content given just the jurisdiction, product name, and node ID.
@@ -21,32 +58,10 @@
 #' )
 #' }
 get_ordinance_section <- function(state_abbreviation, client_name, product_name, node_id) {
-  # Step 1: Get client metadata
-  client_meta <- get_client_metadata(state_abbreviation, client_name)
-  client_id <- client_meta$client_id
+  client_id <- resolve_client_id(state_abbreviation, client_name)
+  product_id <- resolve_product_id(client_id, product_name, client_name)
 
-  if (is.null(client_id) || length(client_id) == 0) {
-    stop(sprintf(
-      "Could not find client '%s' in state '%s'",
-      client_name, state_abbreviation
-    ), call. = FALSE)
-  }
-
-  # Step 2: Get product metadata
-  product_meta <- get_product_metadata(client_id, product_name)
-  product_id <- product_meta$product_id
-
-  if (is.null(product_id) || length(product_id) == 0) {
-    stop(sprintf(
-      "Could not find product '%s' for client '%s'",
-      product_name, client_name
-    ), call. = FALSE)
-  }
-
-  # Step 3: Get content
-  content <- get_section_text(node_id, product_id)
-
-  return(content)
+  get_section_text(node_id, product_id)
 }
 
 #' Get full table of contents for an ordinance in one step
@@ -68,31 +83,10 @@ get_ordinance_section <- function(state_abbreviation, client_name, product_name,
 #' )
 #' }
 get_ordinance_toc <- function(state_abbreviation, client_name, product_name) {
-  # Step 1: Get client metadata
-  client_meta <- get_client_metadata(state_abbreviation, client_name)
-  client_id <- client_meta$client_id
+  client_id <- resolve_client_id(state_abbreviation, client_name)
+  product_id <- resolve_product_id(client_id, product_name, client_name)
 
-  if (is.null(client_id) || length(client_id) == 0) {
-    stop(sprintf(
-      "Could not find client '%s' in state '%s'",
-      client_name, state_abbreviation
-    ), call. = FALSE)
-  }
-
-  # Step 2: Get product metadata
-  product_meta <- get_product_metadata(client_id, product_name)
-  product_id <- product_meta$product_id
-
-  if (is.null(product_id) || length(product_id) == 0) {
-    stop(sprintf(
-      "Could not find product '%s' for client '%s'",
-      product_name, client_name
-    ), call. = FALSE)
-  }
-
-  # Step 3: Get latest job
-  job <- get_current_version(product_id)
-  job_id <- job$id
+  job_id <- get_current_version(product_id)$id
 
   if (is.null(job_id) || length(job_id) == 0) {
     stop(sprintf(
@@ -101,10 +95,7 @@ get_ordinance_toc <- function(state_abbreviation, client_name, product_name) {
     ), call. = FALSE)
   }
 
-  # Step 4: Get table of contents
-  toc <- get_codes_toc(job_id, product_id)
-
-  return(toc)
+  get_codes_toc(job_id, product_id)
 }
 
 #' Get all products for a jurisdiction in one step
@@ -124,19 +115,7 @@ get_ordinance_toc <- function(state_abbreviation, client_name, product_name) {
 #' )
 #' }
 get_jurisdiction_products <- function(state_abbreviation, client_name) {
-  # Get client metadata
-  client_meta <- get_client_metadata(state_abbreviation, client_name)
-  client_id <- client_meta$client_id
+  client_id <- resolve_client_id(state_abbreviation, client_name)
 
-  if (is.null(client_id) || length(client_id) == 0) {
-    stop(sprintf(
-      "Could not find client '%s' in state '%s'",
-      client_name, state_abbreviation
-    ), call. = FALSE)
-  }
-
-  # Get products
-  products <- get_client_products(client_id)
-
-  return(products)
+  get_client_products(client_id)
 }

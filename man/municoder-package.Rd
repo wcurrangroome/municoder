@@ -6,7 +6,7 @@
 \alias{municoder-package}
 \title{municoder: Interface to the municode.com API}
 \description{
-Access and programmatically navigated ordinances and associated metadata relating to regulatory documents hosted on municode.com.
+Access and programmatically navigate ordinances and associated metadata relating to regulatory documents hosted on municode.com.
 }
 \seealso{
 Useful links:
@@ -17,6 +17,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Will Curran-Groome \email{wcurrangroome@gmail.com}
+
+Authors:
+\itemize{
+  \item Will Curran-Groome \email{wcurrangroome@gmail.com}
+}
 
 }
 \keyword{internal}

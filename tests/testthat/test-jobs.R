@@ -28,7 +28,7 @@ test_that("get_current_version handles invalid product_id", {
 
   expect_error(
     get_current_version(999999999),
-    "Failed to fetch|Can't compute column"
+    "Failed to fetch|Municode API request failed|Can't compute column"
   )
 })
 
@@ -49,7 +49,7 @@ test_that("get_version_history handles invalid product_id", {
 
   expect_error(
     get_version_history(999999999),
-    "Failed to fetch|Can't compute column"
+    "Failed to fetch|Municode API request failed|Can't compute column"
   )
 })
 
@@ -61,4 +61,25 @@ test_that("get_version_history returns historical versions", {
 
   # A product should have at least 1 job (current version)
   expect_gte(nrow(result), 1)
+})
+
+test_that("get_changed_sections returns changed sections for a version", {
+  skip_on_cran()
+  skip_if_offline()
+
+  result <- get_changed_sections(job_id = 494092, product_id = 15441)
+
+  expect_s3_class(result, "data.frame")
+  expect_true(all(c("node_id", "title", "compare_status", "ancestor_path") %in% names(result)))
+})
+
+test_that("get_changed_sections returns a typed zero-row frame when nothing changed", {
+  skip_on_cran()
+  skip_if_offline()
+
+  # Job 488221 of product 15441 introduced no tracked changes
+  result <- get_changed_sections(job_id = 488221, product_id = 15441)
+
+  expect_s3_class(result, "data.frame")
+  expect_equal(names(result), c("node_id", "title", "compare_status", "ancestor_path"))
 })

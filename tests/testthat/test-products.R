@@ -11,11 +11,11 @@ test_that("get_product_metadata returns data for valid product", {
   expect_true("product_name" %in% names(result))
 })
 
-test_that("get_product_metadata handles space conversion", {
+test_that("get_product_metadata handles product names with spaces", {
   skip_on_cran()
   skip_if_offline()
 
-  # Spaces should be converted to +
+  # Spaces are percent-encoded by build_endpoint(), not pre-substituted
   result <- get_product_metadata(12053, "Code of Ordinances")
 
   expect_s3_class(result, "data.frame")
@@ -51,7 +51,7 @@ test_that("get_product_metadata handles invalid product names", {
 
   expect_error(
     get_product_metadata(12053, "NonexistentProduct12345"),
-    "Failed to fetch|Can't compute column|NULL"
+    "Failed to fetch|Municode API request failed|Can't compute column|NULL"
   )
 })
 
@@ -61,6 +61,6 @@ test_that("get_product_metadata handles invalid client_id", {
 
   expect_error(
     get_product_metadata(999999999, "Zoning"),
-    "Failed to fetch|Can't compute column"
+    "Failed to fetch|Municode API request failed|Can't compute column"
   )
 })

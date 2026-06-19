@@ -1,7 +1,3 @@
-#' @title Common data transformation helpers for municode API responses
-#' @description Internal functions to standardize data processing across the package
-#' @keywords internal
-
 #' Transform a simple list response to a tidy dataframe
 #' @param response Raw API response (list)
 #' @param primary_key Name of the primary key in the response (default "value")
@@ -33,17 +29,13 @@ transform_nested_client <- function(df) {
     tidyr::unnest_wider(Client, names_sep = "_") %>%
     tidyr::unnest_wider(Client_State)
 
-  # Try to unlist list columns, but don't fail if some can't be unlisted
-  tryCatch({
-    result <- result %>%
-      dplyr::mutate(dplyr::across(dplyr::where(is.list), unlist))
-  }, error = function(e) {
-    # If unlisting fails, just select out any remaining list columns
-    result <- result %>%
-      dplyr::select(dplyr::where(~ !is.list(.x)))
-  })
-
-  return(result)
+  ## Unlist list columns where possible; if any are ragged and can't be
+  ## unlisted, fall back to dropping the remaining list columns. The tryCatch
+  ## value is returned directly so the fallback actually takes effect.
+  tryCatch(
+    result %>% dplyr::mutate(dplyr::across(dplyr::where(is.list), unlist)),
+    error = function(e) result %>% dplyr::select(dplyr::where(~ !is.list(.x)))
+  )
 }
 
 #' Clean HTML content from ordinance text
@@ -54,7 +46,7 @@ clean_html_content <- function(content) {
   content %>%
     stringr::str_replace_all(c(
       "<.*?>" = "",           # Remove HTML tags (non-greedy)
-      "\\\n" = "",            # Remove newlines
+      "\\n" = "",             # Remove newlines
       "\\&nbsp;" = " ",       # Replace &nbsp; with space
       "\\s+" = " "            # Collapse multiple spaces
     ))

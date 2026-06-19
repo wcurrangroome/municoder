@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-transform.R
 \name{transform_list_response}
 \alias{transform_list_response}
-\title{Common data transformation helpers for municode API responses}
+\title{Transform a simple list response to a tidy dataframe}
 \usage{
 transform_list_response(response, primary_key = "value")
 }
@@ -15,14 +15,6 @@ transform_list_response(response, primary_key = "value")
 A tidy dataframe
 }
 \description{
-Internal functions to standardize data processing across the package
+Transform a simple list response to a tidy dataframe
 }
-\keyword{Transform}
-\keyword{a}
-\keyword{dataframe}
 \keyword{internal}
-\keyword{list}
-\keyword{response}
-\keyword{simple}
-\keyword{tidy}
-\keyword{to}
