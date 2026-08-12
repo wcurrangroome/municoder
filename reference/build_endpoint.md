@@ -1,6 +1,6 @@
-# API utility functions for municode.com
+# Build an API endpoint URL
 
-Internal functions for building endpoints and making API calls
+Build an API endpoint URL
 
 ## Usage
 

@@ -1,6 +1,6 @@
-# Common data transformation helpers for municode API responses
+# Transform a simple list response to a tidy dataframe
 
-Internal functions to standardize data processing across the package
+Transform a simple list response to a tidy dataframe
 
 ## Usage
 

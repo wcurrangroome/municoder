@@ -6,16 +6,16 @@ https://api.municode.com/ordinancesToc/children?productId=12429&nodeId=2023
 ## Usage
 
 ``` r
-get_ordinance_children(product_id, node_id)
+get_ordinance_children(node_id, product_id)
 ```
 
 ## Arguments
-
-- product_id:
-
-  A unique identifier for a product
 
 - node_id:
 
   A unique identifier for a node within the specified product
   (ordinance)
+
+- product_id:
+
+  A unique identifier for a product

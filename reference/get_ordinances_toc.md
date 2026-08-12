@@ -6,19 +6,19 @@ https://api.municode.com/ordinancesToc?nodeId=2023&productId=12429
 ## Usage
 
 ``` r
-get_ordinances_toc(product_id, node_id = NA)
+get_ordinances_toc(node_id = NULL, product_id)
 ```
 
 ## Arguments
-
-- product_id:
-
-  A unique identifier for a product
 
 - node_id:
 
   A unique identifier for a node within the specified product
   (ordinance)
+
+- product_id:
+
+  A unique identifier for a product
 
 ## Examples
 

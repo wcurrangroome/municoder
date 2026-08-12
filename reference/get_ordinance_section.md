@@ -1,4 +1,4 @@
-# Workflow helper functions for common multi-step operations Get ordinance section content in one step
+# Get ordinance section content in one step
 
 Convenience function that chains together multiple API calls to retrieve
 ordinance section content given just the jurisdiction, product name, and

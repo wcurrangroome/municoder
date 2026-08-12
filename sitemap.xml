@@ -9,10 +9,15 @@
 <url><loc>https://wcurrangroome.github.io/municoder/reference/clean_client_columns.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/clean_html_content.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/convert_html_tables_to_markdown.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/extract_section_docs.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/fetch_section_result.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/flatten_codes_tree.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_changed_sections.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_client_metadata.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_client_products.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_clients_in_state.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_codes_toc.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/get_codes_tree.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_current_version.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_endpoint.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/get_jurisdiction_products.html</loc></url>
@@ -33,6 +38,8 @@
 <url><loc>https://wcurrangroome.github.io/municoder/reference/index.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/list_ordinances.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/municoder-package.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/resolve_client_id.html</loc></url>
+<url><loc>https://wcurrangroome.github.io/municoder/reference/resolve_product_id.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/transform_list_response.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/transform_nested_client.html</loc></url>
 <url><loc>https://wcurrangroome.github.io/municoder/reference/transform_nested_state.html</loc></url>

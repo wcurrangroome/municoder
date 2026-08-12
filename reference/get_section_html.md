@@ -10,7 +10,13 @@ contain HTML tables (e.g., dimensional standards).
 ## Usage
 
 ``` r
-get_section_html(node_id = NULL, product_id)
+get_section_html(
+  node_id = NULL,
+  product_id,
+  job_id = NULL,
+  past_job_id = NULL,
+  show_changes = FALSE
+)
 ```
 
 ## Arguments
@@ -23,6 +29,21 @@ get_section_html(node_id = NULL, product_id)
 - product_id:
 
   A unique identifier for a product
+
+- job_id:
+
+  Optional job identifier; required when `show_changes = TRUE`
+
+- past_job_id:
+
+  Optional prior job identifier to diff against; required when
+  `show_changes = TRUE`
+
+- show_changes:
+
+  If `TRUE`, request a redline comparison of `job_id` against
+  `past_job_id`. The insertion/deletion markup is preserved in the
+  returned `content_html` column.
 
 ## Value
 

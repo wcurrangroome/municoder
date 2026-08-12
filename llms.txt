@@ -180,6 +180,8 @@ purpose_statements %>%
 
 ## All functions
 
+- [`get_changed_sections()`](https://wcurrangroome.github.io/municoder/reference/get_changed_sections.md)
+  : List the sections that changed in a given version of an ordinance
 - [`get_client_metadata()`](https://wcurrangroome.github.io/municoder/reference/get_client_metadata.md)
   : Client-related API functions Returns metadata about a given client
 - [`get_client_products()`](https://wcurrangroome.github.io/municoder/reference/get_client_products.md)
@@ -188,6 +190,9 @@ purpose_statements %>%
   : Return metadata for all Municode clients in a given state
 - [`get_codes_toc()`](https://wcurrangroome.github.io/municoder/reference/get_codes_toc.md)
   : Get the Table of Contents for an ordinance
+- [`get_codes_tree()`](https://wcurrangroome.github.io/municoder/reference/get_codes_tree.md)
+  : Get the full table of contents tree for an ordinance in a single
+  request
 - [`get_current_version()`](https://wcurrangroome.github.io/municoder/reference/get_current_version.md)
   : Get the current version of a product
 - [`get_jurisdiction_products()`](https://wcurrangroome.github.io/municoder/reference/get_jurisdiction_products.md)
@@ -198,8 +203,7 @@ purpose_statements %>%
 - [`get_ordinance_children()`](https://wcurrangroome.github.io/municoder/reference/get_ordinance_children.md)
   : Get the children of a given node in an ordinance's Table of Contents
 - [`get_ordinance_section()`](https://wcurrangroome.github.io/municoder/reference/get_ordinance_section.md)
-  : Workflow helper functions for common multi-step operations Get
-  ordinance section content in one step
+  : Get ordinance section content in one step
 - [`get_ordinance_toc()`](https://wcurrangroome.github.io/municoder/reference/get_ordinance_toc.md)
   : Get full table of contents for an ordinance in one step
 - [`get_ordinances_toc()`](https://wcurrangroome.github.io/municoder/reference/get_ordinances_toc.md)
@@ -214,8 +218,7 @@ purpose_statements %>%
   : Get raw HTML content and markdown for a given node within a given
   ordinance
 - [`get_section_text()`](https://wcurrangroome.github.io/municoder/reference/get_section_text.md)
-  : Code-related API functions (current ordinance versions) Get text and
-  metadata for a given node within a given ordinance
+  : Get text and metadata for a given node within a given ordinance
 - [`get_state_by_abbreviation()`](https://wcurrangroome.github.io/municoder/reference/get_state_by_abbreviation.md)
   : Look up state metadata given a state abbreviation
 - [`get_states()`](https://wcurrangroome.github.io/municoder/reference/get_states.md)

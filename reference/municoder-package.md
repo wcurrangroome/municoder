@@ -1,6 +1,6 @@
 # municoder: Interface to the municode.com API
 
-Access and programmatically navigated ordinances and associated metadata
+Access and programmatically navigate ordinances and associated metadata
 relating to regulatory documents hosted on municode.com.
 
 ## See also
@@ -12,3 +12,7 @@ Useful links:
 ## Author
 
 **Maintainer**: Will Curran-Groome <wcurrangroome@gmail.com>
+
+Authors:
+
+- Will Curran-Groome <wcurrangroome@gmail.com>

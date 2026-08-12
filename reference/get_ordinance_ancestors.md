@@ -6,16 +6,16 @@ https://api.municode.com/ordinancesToc/breadcrumb?nodeId=2023&productId=12429
 ## Usage
 
 ``` r
-get_ordinance_ancestors(product_id, node_id)
+get_ordinance_ancestors(node_id, product_id)
 ```
 
 ## Arguments
-
-- product_id:
-
-  A unique identifier for a product
 
 - node_id:
 
   A unique identifier for a node within the specified product
   (ordinance)
+
+- product_id:
+
+  A unique identifier for a product
