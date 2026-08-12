@@ -29,13 +29,18 @@ transform_nested_client <- function(df) {
     tidyr::unnest_wider(Client, names_sep = "_") %>%
     tidyr::unnest_wider(Client_State)
 
-  ## Unlist list columns where possible; if any are ragged and can't be
-  ## unlisted, fall back to dropping the remaining list columns. The tryCatch
-  ## value is returned directly so the fallback actually takes effect.
-  tryCatch(
-    result %>% dplyr::mutate(dplyr::across(dplyr::where(is.list), unlist)),
-    error = function(e) result %>% dplyr::select(dplyr::where(~ !is.list(.x)))
-  )
+  ## Flatten list columns: NULL elements become NA so a single missing value
+  ## doesn't force the whole column (or, previously, every list column) to be
+  ## dropped. Columns whose elements are all scalars (after NULL -> NA) are
+  ## unlisted; only genuinely ragged columns are dropped.
+  result %>%
+    dplyr::mutate(dplyr::across(
+      dplyr::where(is.list),
+      ~ purrr::map(.x, \(element) if (is.null(element)) NA else element))) %>%
+    dplyr::mutate(dplyr::across(
+      dplyr::where(~ is.list(.x) && all(lengths(.x) == 1) && all(purrr::map_lgl(.x, is.atomic))),
+      unlist)) %>%
+    dplyr::select(dplyr::where(~ !is.list(.x)))
 }
 
 #' Clean HTML content from ordinance text

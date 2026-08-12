@@ -13,16 +13,18 @@
 #' get_client_metadata("VA", "Alexandria")
 #' }
 get_client_metadata <- function(state_abbreviation, client_name) {
-  result <-
-    build_endpoint(
-      domain = "Clients",
-      subdomain = "name",
-      parameters = c(stateAbbr = state_abbreviation, clientName = client_name)) %>%
-    get_endpoint() %>%
-    tibble::enframe() %>%
-    tidyr::pivot_wider() %>%
-    transform_nested_state() %>%
-    janitor::clean_names()
+  ## The Clients/name endpoint now returns HTTP 404 for every request, so this
+  ## filters the (still working) per-state client listing by name instead.
+  state_clients <- get_clients_in_state(state_abbreviation)
+
+  result <- state_clients %>%
+    dplyr::filter(stringr::str_to_lower(client_name) == stringr::str_to_lower(!!client_name))
+
+  if (nrow(result) == 0) {
+    stop(
+      "No Municode client named '", client_name, "' in state '",
+      state_abbreviation, "'.")
+  }
 
   result
 }

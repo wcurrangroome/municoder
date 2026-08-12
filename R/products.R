@@ -16,12 +16,26 @@ get_product_metadata <- function(client_id, product_name) {
   ## both unnecessary and wrong (it would encode the literal "+").
   product_name <- stringr::str_to_lower(product_name)
 
-  result <-
+  response <-
     build_endpoint(
       domain = "Products",
       subdomain = "name",
       parameters = c(clientId = client_id, productName = product_name)) %>%
-    get_endpoint() %>%
+    get_endpoint()
+
+  ## The API now wraps this endpoint's payload in an envelope:
+  ## {IsSuccess, IsError, Message, Model}. The product fields live in Model.
+  if (!is.null(response$Model) || "IsSuccess" %in% names(response)) {
+    if (isTRUE(response$IsError) || is.null(response$Model)) {
+      stop(
+        "Municode API returned an error for client_id ", client_id,
+        ", product_name '", product_name, "': ", response$Message)
+    }
+    response <- response$Model
+  }
+
+  result <-
+    response %>%
     tibble::enframe() %>%
     tidyr::pivot_wider() %>%
     tidyr::unnest_wider(ContentType) %>%
