@@ -46,27 +46,6 @@ set_urbn_defaults()
 options(scipen = 999999)
 ```
 
-```{r}
-https://library.municode.com/api/ClientContent/17313
-https://library.municode.com/api/States/abbr?stateAbbr=or
-https://library.municode.com/api/ClientContent/17313
-https://library.municode.com/api/Products/name?clientId=17313&productName=code+of+ordinances
-https://library.municode.com/api/Jobs/latest/15441
-https://library.municode.com/api/codesToc/breadcrumb?jobId=494092&nodeId=15441&productId=15441
-https://library.municode.com/api/codesToc?jobId=494092&productId=15441
-https://library.municode.com/api/CodesContent?jobId=494092&productId=15441
-https://library.municode.com/localapi/Codebank/GetVersions/4052
-https://library.municode.com/api/Jobs/15441/488221
-https://library.municode.com/api/CodesChangedDocs?jobId=488221&productId=15441
-https://library.municode.com/api/CodesChangedDocs?jobId=494092&productId=15441
-https://library.municode.com/api/PublicationPdfDownload/4052
-https://library.municode.com/api/CoreContent/Ordinances?productId=15441
-https://library.municode.com/api/codesToc/fullTree?jobId=494092&nodeId=15441&productId=15441
-https://library.municode.com/api/DocActions/saveAsDocx/15441
-https://library.municode.com/api/codesContent?jobId=494092&nodeId=TITXUNDECO_UDC_CH110GEZOPR_S110.050RESARECORE&pastJobId=491712&productId=15441&showChanges=true
-```
-
-
 ## Quick Start
 
 Get started with municoder in just a few lines:
@@ -203,3 +182,7 @@ purpose_statements %>%
   dplyr::pull(content) %>% 
   keep(~ str_detect(.x, "affordability|affordable"))
 ```
+
+## Use of Generative AI
+
+This package was developed in part using agentic AI, under the supervision of the author.
