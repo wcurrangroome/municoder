@@ -2,15 +2,30 @@
 % Please edit documentation in R/codes.R
 \name{get_section_text}
 \alias{get_section_text}
-\title{Code-related API functions (current ordinance versions)
-Get text and metadata for a given node within a given ordinance}
+\title{Get text and metadata for a given node within a given ordinance}
 \usage{
-get_section_text(node_id = NULL, product_id)
+get_section_text(
+  node_id = NULL,
+  product_id,
+  job_id = NULL,
+  past_job_id = NULL,
+  show_changes = FALSE
+)
 }
 \arguments{
 \item{node_id}{A unique identifier for a node within the specified product (ordinance)}
 
 \item{product_id}{A unique identifier for a product}
+
+\item{job_id}{Optional job identifier; required when \code{show_changes = TRUE}}
+
+\item{past_job_id}{Optional prior job identifier to diff against; required
+when \code{show_changes = TRUE}}
+
+\item{show_changes}{If \code{TRUE}, request a redline comparison of \code{job_id}
+against \code{past_job_id}. Note that \code{get_section_text()} strips HTML, which
+discards the insertion/deletion markup; use \code{\link[=get_section_html]{get_section_html()}} to retain
+the redline in the \code{content_html} column.}
 }
 \value{
 A dataframe with the content and metadata pertaining to a specific node within an ordinance

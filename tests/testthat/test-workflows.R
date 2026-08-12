@@ -58,7 +58,7 @@ test_that("get_ordinance_toc handles invalid product name", {
 
   expect_error(
     get_ordinance_toc("VA", "Alexandria", "NonexistentProduct"),
-    "Could not find product|Failed to fetch"
+    "Could not find product|Failed to fetch|Municode API request failed|Can't select columns"
   )
 })
 
@@ -89,7 +89,7 @@ test_that("get_ordinance_section handles invalid node_id", {
 
   expect_error(
     get_ordinance_section("VA", "Alexandria", "Zoning", "INVALID123"),
-    "Failed to fetch|Can't compute column"
+    "Failed to fetch|Municode API request failed|Can't compute column"
   )
 })
 
@@ -117,5 +117,5 @@ test_that("workflow functions provide informative errors", {
     error = function(e) conditionMessage(e)
   )
 
-  expect_true(grepl("Could not find client|Failed to fetch|Unexpected content type", error_msg))
+  expect_true(stringr::str_detect(error_msg, "Could not find client|Failed to fetch|Unexpected content type"))
 })

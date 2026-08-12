@@ -4,12 +4,27 @@
 \alias{get_section_html}
 \title{Get raw HTML content and markdown for a given node within a given ordinance}
 \usage{
-get_section_html(node_id = NULL, product_id)
+get_section_html(
+  node_id = NULL,
+  product_id,
+  job_id = NULL,
+  past_job_id = NULL,
+  show_changes = FALSE
+)
 }
 \arguments{
 \item{node_id}{A unique identifier for a node within the specified product (ordinance)}
 
 \item{product_id}{A unique identifier for a product}
+
+\item{job_id}{Optional job identifier; required when \code{show_changes = TRUE}}
+
+\item{past_job_id}{Optional prior job identifier to diff against; required
+when \code{show_changes = TRUE}}
+
+\item{show_changes}{If \code{TRUE}, request a redline comparison of \code{job_id}
+against \code{past_job_id}. The insertion/deletion markup is preserved in the
+returned \code{content_html} column.}
 }
 \value{
 A dataframe with the raw HTML content and metadata for the specified node.

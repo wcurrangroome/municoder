@@ -92,6 +92,56 @@ test_that("get_section_text handles invalid node_id", {
 
   expect_error(
     get_section_text(node_id = "INVALID123", product_id = 12429),
-    "Failed to fetch|Can't compute column|NULL"
+    "Failed to fetch|Municode API request failed|Can't compute column|NULL"
   )
+})
+
+test_that("flatten_codes_tree flattens a nested tree to one row per node", {
+  tree <- list(
+    Id = "ROOT", Heading = "Root", NodeDepth = -1L, HasChildren = TRUE,
+    ParentId = NULL, DocOrderId = 0L,
+    Data = list(NodeKey = "k0", IsUpdated = FALSE, IsAmended = FALSE,
+                HasAmendedDescendant = TRUE, CompareStatus = 0L, DocType = 1L),
+    Children = list(
+      list(Id = "A", Heading = "Child A", NodeDepth = 0L, HasChildren = FALSE,
+           ParentId = "ROOT", DocOrderId = 1L,
+           Data = list(NodeKey = "k1", IsUpdated = FALSE, IsAmended = TRUE,
+                       HasAmendedDescendant = FALSE, CompareStatus = 2L, DocType = 1L),
+           Children = list()),
+      list(Id = "B", Heading = "Child B", NodeDepth = 0L, HasChildren = FALSE,
+           ParentId = "ROOT", DocOrderId = 2L,
+           Data = list(NodeKey = "k2", IsUpdated = FALSE, IsAmended = FALSE,
+                       HasAmendedDescendant = FALSE, CompareStatus = 0L, DocType = 1L),
+           Children = list())))
+
+  result <- municoder:::flatten_codes_tree(tree)
+
+  expect_s3_class(result, "data.frame")
+  expect_equal(nrow(result), 3)
+  # Root first, then children in order
+  expect_equal(result$id, c("ROOT", "A", "B"))
+  # NULL ParentId on the root becomes NA, not an error
+  expect_equal(result$parent_id, c(NA, "ROOT", "ROOT"))
+  expect_true(result$is_amended[result$id == "A"])
+  # Everything is unnested -- no residual list columns
+  expect_false(any(vapply(result, is.list, logical(1))))
+})
+
+test_that("get_section_html show_changes requires job_id and past_job_id", {
+  expect_error(
+    get_section_html(node_id = "SUHITA", product_id = 15441, show_changes = TRUE),
+    "requires both"
+  )
+})
+
+test_that("get_codes_tree returns a flattened tree with one row per node", {
+  skip_on_cran()
+  skip_if_offline()
+
+  result <- get_codes_tree(job_id = 494092, node_id = 15441, product_id = 15441)
+
+  expect_s3_class(result, "data.frame")
+  expect_gt(nrow(result), 1)
+  expect_true(all(c("id", "heading", "node_depth", "parent_id", "is_amended") %in% names(result)))
+  expect_false(any(vapply(result, is.list, logical(1))))
 })

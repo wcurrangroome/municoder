@@ -17,30 +17,30 @@ test_that("clean_html_content removes HTML tags", {
   html_text <- "<p>This is a test</p><br>With HTML"
   result <- municoder:::clean_html_content(html_text)
 
-  expect_false(grepl("<", result))
-  expect_false(grepl(">", result))
-  expect_true(grepl("This is a test", result))
+  expect_false(stringr::str_detect(result, "<"))
+  expect_false(stringr::str_detect(result, ">"))
+  expect_true(stringr::str_detect(result, "This is a test"))
 })
 
 test_that("clean_html_content removes &nbsp entities", {
   html_text <- "Test&nbsp;with&nbsp;spaces"
   result <- municoder:::clean_html_content(html_text)
 
-  expect_false(grepl("&nbsp", result))
+  expect_false(stringr::str_detect(result, "&nbsp"))
 })
 
 test_that("clean_html_content collapses multiple spaces", {
   html_text <- "Test    with    spaces"
   result <- municoder:::clean_html_content(html_text)
 
-  expect_false(grepl("  ", result))
+  expect_false(stringr::str_detect(result, "  "))
 })
 
 test_that("clean_html_content removes newlines", {
   html_text <- "Test\nwith\nnewlines"
   result <- municoder:::clean_html_content(html_text)
 
-  expect_false(grepl("\n", result))
+  expect_false(stringr::str_detect(result, "\n"))
 })
 
 test_that("clean_client_columns removes specified columns", {
@@ -65,4 +65,41 @@ test_that("clean_client_columns removes specified columns", {
   expect_true("client_id" %in% names(result))
   expect_true("client_name" %in% names(result))
   expect_true("other_column" %in% names(result))
+})
+
+test_that("html_to_markdown converts headings, emphasis, and entities", {
+  expect_equal(municoder:::html_to_markdown("<h1>Title</h1>"), "# Title")
+  expect_equal(municoder:::html_to_markdown("<h2>Sub</h2>"), "## Sub")
+  expect_equal(municoder:::html_to_markdown("<p>Hello <b>world</b></p>"), "Hello **world**")
+  expect_equal(municoder:::html_to_markdown("<p>a <i>x</i></p>"), "a *x*")
+  expect_equal(municoder:::html_to_markdown("a &amp; b"), "a & b")
+})
+
+test_that("html_to_markdown renders HTML tables as markdown tables", {
+  html <- "<table><tr><th>A</th><th>B</th></tr><tr><td>1</td><td>2</td></tr></table>"
+  result <- municoder:::html_to_markdown(html)
+
+  expect_true(stringr::str_detect(result, stringr::fixed("| A | B |")))
+  expect_true(stringr::str_detect(result, stringr::fixed("| --- | --- |")))
+  expect_true(stringr::str_detect(result, stringr::fixed("| 1 | 2 |")))
+})
+
+test_that("convert_html_tables_to_markdown leaves table-free input untouched", {
+  expect_equal(
+    municoder:::convert_html_tables_to_markdown("no table here"),
+    "no table here"
+  )
+})
+
+test_that("convert_html_tables_to_markdown is vectorized over its input", {
+  out <- municoder:::convert_html_tables_to_markdown(c("plain", "also plain"))
+  expect_length(out, 2)
+  expect_equal(out, c("plain", "also plain"))
+})
+
+test_that("clean_html_content strips tags, entities, and newlines together", {
+  expect_equal(
+    municoder:::clean_html_content("<p>Test&nbsp;text</p>\nLine"),
+    "Test textLine"
+  )
 })

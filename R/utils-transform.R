@@ -1,7 +1,3 @@
-#' @title Common data transformation helpers for municode API responses
-#' @description Internal functions to standardize data processing across the package
-#' @keywords internal
-
 #' Transform a simple list response to a tidy dataframe
 #' @param response Raw API response (list)
 #' @param primary_key Name of the primary key in the response (default "value")
@@ -33,17 +29,18 @@ transform_nested_client <- function(df) {
     tidyr::unnest_wider(Client, names_sep = "_") %>%
     tidyr::unnest_wider(Client_State)
 
-  # Try to unlist list columns, but don't fail if some can't be unlisted
-  tryCatch({
-    result <- result %>%
-      dplyr::mutate(dplyr::across(dplyr::where(is.list), unlist))
-  }, error = function(e) {
-    # If unlisting fails, just select out any remaining list columns
-    result <- result %>%
-      dplyr::select(dplyr::where(~ !is.list(.x)))
-  })
-
-  return(result)
+  ## Flatten list columns: NULL elements become NA so a single missing value
+  ## doesn't force the whole column (or, previously, every list column) to be
+  ## dropped. Columns whose elements are all scalars (after NULL -> NA) are
+  ## unlisted; only genuinely ragged columns are dropped.
+  result %>%
+    dplyr::mutate(dplyr::across(
+      dplyr::where(is.list),
+      ~ purrr::map(.x, \(element) if (is.null(element)) NA else element))) %>%
+    dplyr::mutate(dplyr::across(
+      dplyr::where(~ is.list(.x) && all(lengths(.x) == 1) && all(purrr::map_lgl(.x, is.atomic))),
+      unlist)) %>%
+    dplyr::select(dplyr::where(~ !is.list(.x)))
 }
 
 #' Clean HTML content from ordinance text
@@ -54,7 +51,7 @@ clean_html_content <- function(content) {
   content %>%
     stringr::str_replace_all(c(
       "<.*?>" = "",           # Remove HTML tags (non-greedy)
-      "\\\n" = "",            # Remove newlines
+      "\\n" = "",             # Remove newlines
       "\\&nbsp;" = " ",       # Replace &nbsp; with space
       "\\s+" = " "            # Collapse multiple spaces
     ))

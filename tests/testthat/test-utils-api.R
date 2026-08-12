@@ -26,8 +26,8 @@ test_that("build_endpoint constructs URLs correctly", {
   # Test with multiple parameters
   result <- build_endpoint("Clients", subdomain = "name",
                           parameters = c(stateAbbr = "VA", clientName = "Alexandria"))
-  expect_true(grepl("stateAbbr=VA", result))
-  expect_true(grepl("clientName=Alexandria", result))
+  expect_true(stringr::str_detect(result, "stateAbbr=VA"))
+  expect_true(stringr::str_detect(result, "clientName=Alexandria"))
 
   # Test with NULL parameters
   expect_equal(
@@ -42,11 +42,15 @@ test_that("build_endpoint constructs URLs correctly", {
   )
 })
 
-test_that("get_endpoint handles errors gracefully", {
-  # Test with invalid URL
+test_that("get_endpoint surfaces HTTP errors with the status code", {
+  skip_on_cran()
+  skip_if_offline()
+
+  # A reachable host returning a non-2xx status reports the HTTP status
+  # rather than being collapsed into the generic connection-failure message.
   expect_error(
     get_endpoint("https://api.municode.com/InvalidEndpoint"),
-    "Failed to fetch from Municode API"
+    "Municode API request failed \\(HTTP"
   )
 })
 

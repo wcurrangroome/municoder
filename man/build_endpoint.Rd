@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-api.R
 \name{build_endpoint}
 \alias{build_endpoint}
-\title{API utility functions for municode.com}
+\title{Build an API endpoint URL}
 \usage{
 build_endpoint(domain, subdomain = NULL, parameters = NULL)
 }
@@ -17,11 +17,6 @@ build_endpoint(domain, subdomain = NULL, parameters = NULL)
 Complete API endpoint URL
 }
 \description{
-Internal functions for building endpoints and making API calls
+Build an API endpoint URL
 }
-\keyword{API}
-\keyword{Build}
-\keyword{URL}
-\keyword{an}
-\keyword{endpoint}
 \keyword{internal}

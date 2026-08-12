@@ -51,7 +51,7 @@ test_that("get_client_metadata handles invalid client names", {
 
   expect_error(
     get_client_metadata("VA", "NonexistentCity12345"),
-    "Failed to fetch|Can't compute column|NULL"
+    "Failed to fetch|Municode API request failed|Can't compute column|NULL"
   )
 })
 
@@ -74,6 +74,6 @@ test_that("get_client_products handles invalid client_id", {
 
   expect_error(
     get_client_products(999999999),
-    "Failed to fetch|Can't compute column|Can't select columns|doesn't exist"
+    "Failed to fetch|Municode API request failed|Can't compute column|Can't select columns|doesn't exist"
   )
 })

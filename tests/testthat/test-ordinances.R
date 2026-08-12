@@ -60,7 +60,7 @@ test_that("get_ordinances functions handle invalid product_id", {
 
   expect_error(
     get_ordinances_toc(product_id = 999999999),
-    "Failed to fetch|Can't compute column"
+    "Failed to fetch|Municode API request failed|Can't compute column"
   )
 })
 
@@ -70,6 +70,6 @@ test_that("list_ordinances handles invalid parameters", {
 
   expect_error(
     list_ordinances(product_id = 999999999, node_id = "INVALID"),
-    "Failed to fetch|Can't compute column"
+    "Failed to fetch|Municode API request failed|Can't compute column"
   )
 })

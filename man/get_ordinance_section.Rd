@@ -2,8 +2,7 @@
 % Please edit documentation in R/workflows.R
 \name{get_ordinance_section}
 \alias{get_ordinance_section}
-\title{Workflow helper functions for common multi-step operations
-Get ordinance section content in one step}
+\title{Get ordinance section content in one step}
 \usage{
 get_ordinance_section(state_abbreviation, client_name, product_name, node_id)
 }

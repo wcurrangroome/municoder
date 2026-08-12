@@ -1,7 +1,3 @@
-#' @title API utility functions for municode.com
-#' @description Internal functions for building endpoints and making API calls
-#' @keywords internal
-
 #' Build an API endpoint URL
 #' @param domain The first component of the API endpoint after base api.municode.com/
 #' @param subdomain The second component of the API endpoint
@@ -9,34 +5,26 @@
 #' @return Complete API endpoint URL
 #' @keywords internal
 build_endpoint <- function(domain, subdomain = NULL, parameters = NULL) {
-  # Build base URL
-  base_url <- "https://api.municode.com/"
-
-  # Build path
   path_parts <- c(domain, subdomain)
-  path <- paste(stats::na.omit(path_parts), collapse = "/")
+  path_parts <- path_parts[!is.na(path_parts)]
 
-  # Combine base and path
-  url <- paste0(base_url, path)
+  ## httr2 percent-encodes path segments and query values, so callers never
+  ## need to pre-encode (e.g. client or product names containing spaces).
+  ## rlang::exec() splices the variable-length path parts and parameters in,
+  ## since req_url_path_append() does not itself support dynamic dots.
+  request <- rlang::exec(
+    httr2::req_url_path_append,
+    httr2::request("https://api.municode.com/"),
+    !!!as.list(path_parts))
 
-  # Add query parameters if provided
   if (!is.null(parameters)) {
-    # Remove NULL parameters
-    parameters <- parameters[!sapply(parameters, is.null)]
     parameters <- parameters[!is.na(parameters)]
-
     if (length(parameters) > 0) {
-      params_str <- paste(
-        names(parameters),
-        sapply(parameters, as.character),
-        sep = "=",
-        collapse = "&"
-      )
-      url <- paste0(url, "?", params_str)
+      request <- rlang::exec(httr2::req_url_query, request, !!!as.list(parameters))
     }
   }
 
-  return(url)
+  request$url
 }
 
 #' Send a GET request to a municode API endpoint
@@ -45,39 +33,42 @@ build_endpoint <- function(domain, subdomain = NULL, parameters = NULL) {
 #' @return Parsed JSON response
 #' @keywords internal
 get_endpoint <- function(endpoint, max_retries = 3) {
-  tryCatch({
-    result <- endpoint %>%
-      httr2::request() %>%
-      httr2::req_retry(max_tries = max_retries) %>%
-      httr2::req_error(is_error = function(resp) FALSE) %>%
-      httr2::req_perform()
-
-    # Check for HTTP errors
-    if (httr2::resp_is_error(result)) {
-      status <- httr2::resp_status(result)
-      stop(sprintf(
-        "Municode API request failed (HTTP %d).\nEndpoint: %s",
-        status, endpoint
-      ), call. = FALSE)
-    }
-
-    # Parse JSON response
-    parsed <- httr2::resp_body_json(result)
-
-    # Validate response
-    if (is.null(parsed)) {
-      warning(sprintf(
-        "API returned NULL response for endpoint: %s",
-        endpoint
-      ), call. = FALSE)
-    }
-
-    return(parsed)
-
-  }, error = function(e) {
+  fail <- function(e) {
     stop(sprintf(
       "Failed to fetch from Municode API.\nEndpoint: %s\nError: %s",
       endpoint, conditionMessage(e)
     ), call. = FALSE)
-  })
+  }
+
+  ## Connection-level failures (DNS, timeout, refused) and non-JSON bodies are
+  ## wrapped via fail(); a genuine HTTP status error is reported separately so
+  ## the status code is surfaced rather than buried in a generic message.
+  response <- tryCatch(
+    endpoint %>%
+      httr2::request() %>%
+      httr2::req_timeout(30) %>%
+      httr2::req_retry(
+        max_tries = max_retries,
+        is_transient = function(resp) httr2::resp_status(resp) %in% c(429L, 500L, 502L, 503L, 504L)) %>%
+      httr2::req_error(is_error = function(resp) FALSE) %>%
+      httr2::req_perform(),
+    error = fail)
+
+  if (httr2::resp_is_error(response)) {
+    stop(sprintf(
+      "Municode API request failed (HTTP %d).\nEndpoint: %s",
+      httr2::resp_status(response), endpoint
+    ), call. = FALSE)
+  }
+
+  parsed <- tryCatch(httr2::resp_body_json(response), error = fail)
+
+  if (is.null(parsed)) {
+    warning(sprintf(
+      "Municode API returned an empty response for endpoint: %s",
+      endpoint
+    ), call. = FALSE)
+  }
+
+  parsed
 }
